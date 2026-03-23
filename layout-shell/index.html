@@ -97,6 +97,9 @@
                   A retrieval-augmented question-answering API over internal policy-style documents.
                   Questions are embedded, matched against a FAISS index, and answered with an LLM using only retrieved context—returning explicit source references for each response.
                 </p>
+                <aside class="proj-tldr" aria-label="Project summary">
+                  <p><strong>TL;DR.</strong> I built an end-to-end <strong>retrieve → cite → generate</strong> pipeline: documents are chunked and indexed offline; a <strong>deployed FastAPI</strong> service answers questions with an LLM constrained to <strong>retrieved passages</strong>, returns <strong>source metadata</strong>, and ships in <strong>Docker</strong> behind <strong>Caddy</strong> on a VPS. The live demo below calls the same public <code>/ask</code> endpoint as any client.</p>
+                </aside>
                 <div class="proj-tags" aria-label="Technologies">
                   <span class="proj-tag">FastAPI</span>
                   <span class="proj-tag">FAISS</span>
@@ -119,12 +122,35 @@
                   <p><strong>Problem.</strong> Teams store procedures, SLAs, and policies in text files or PDFs. Finding a precise answer quickly—without guessing—requires search that understands meaning, not just keywords.</p>
                   <p><strong>What this system does.</strong> It ingests chunked documents, builds dense vector embeddings, indexes them in FAISS, and exposes a REST API. Each <code>POST /ask</code> retrieves top-k chunks, assembles them into a prompt, and calls an OpenAI-compatible chat model. The response includes <strong>document name</strong>, <strong>page</strong>, and <strong>chunk id</strong> for each source.</p>
                   <p><strong>Why grounding matters.</strong> Pure LLM answers can confabulate on factual details (dates, SLAs, thresholds). Conditioning on retrieved passages ties the answer to specific text and makes errors easier to audit.</p>
+                  <div class="proj-limitations">
+                    <h3 class="proj-subheading">Scope &amp; limitations</h3>
+                    <ul class="proj-limitations-list">
+                      <li><strong>Fixed corpus</strong> — Answers are only as good as the indexed documents; the API does not browse the open web.</li>
+                      <li><strong>Retrieval can miss or rank poorly</strong> — Wrong or weak chunks still lead to weak or wrong answers; similarity is not “truth.”</li>
+                      <li><strong>LLM behavior</strong> — The model may still misread context or refuse; optional server-side <code>RETRIEVAL_MIN_SCORE</code> can skip the LLM and return a fallback even when chunks exist.</li>
+                      <li><strong>Not legal/financial advice</strong> — Demo policies are sample text for engineering illustration.</li>
+                    </ul>
+                  </div>
                 </div>
               </section>
 
               <section class="proj-section" aria-labelledby="flow-heading">
                 <h2 id="flow-heading">Architecture &amp; workflow</h2>
                 <p class="proj-section-intro">End-to-end path for a single question:</p>
+                <div class="proj-arch-visual" aria-label="High-level request flow">
+                  <span class="proj-arch-node">Question</span>
+                  <span class="proj-arch-arrow" aria-hidden="true">→</span>
+                  <span class="proj-arch-node">Query embedding</span>
+                  <span class="proj-arch-arrow" aria-hidden="true">→</span>
+                  <span class="proj-arch-node">FAISS top‑k</span>
+                  <span class="proj-arch-arrow" aria-hidden="true">→</span>
+                  <span class="proj-arch-node">Prompt + context</span>
+                  <span class="proj-arch-arrow" aria-hidden="true">→</span>
+                  <span class="proj-arch-node">LLM</span>
+                  <span class="proj-arch-arrow" aria-hidden="true">→</span>
+                  <span class="proj-arch-node">Answer + sources</span>
+                </div>
+                <p class="proj-arch-caption">One request; offline steps (extract → chunk → embed → index) are separate from this path.</p>
                 <ol class="proj-steps">
                   <li class="proj-step">
                     <span class="proj-step-num">1</span>
@@ -217,6 +243,7 @@
                 <div class="proj-prose">
                   <p>The service runs as a <strong>Docker</strong> container exposing the FastAPI app on an internal port. <strong>Caddy</strong> terminates TLS and proxies public HTTPS to the container. The live instance is reachable at <a href="https://rag.vahdetkaratas.com/health" target="_blank" rel="noopener noreferrer"><code>rag.vahdetkaratas.com</code></a> with <code>GET /health</code> reporting index and metadata presence and whether retrieval is loaded in memory.</p>
                   <p>This matches a small production-style loop: build image → run on VPS → configure DNS and reverse proxy → verify health before sending traffic to <code>/ask</code>.</p>
+                  <p><strong>Building the index &amp; artifacts</strong> (local or CI) is documented in the repo: see <a href="https://github.com/vahdetkaratas/rag-document-qa-system/blob/main/README.md" target="_blank" rel="noopener noreferrer"><code>README.md</code></a> and <a href="https://github.com/vahdetkaratas/rag-document-qa-system/blob/main/docs/PUBLISH.md" target="_blank" rel="noopener noreferrer"><code>docs/PUBLISH.md</code></a> for extraction → chunking → FAISS indexing and Docker notes.</p>
                 </div>
               </section>
 
@@ -257,6 +284,12 @@
                     <h3 class="proj-demo-out-title proj-sources-heading">Retrieved evidence</h3>
                     <p class="proj-sources-lead">Chunks returned by the API as supporting context for the answer above.</p>
                     <div class="proj-sources-cards" id="demoSources"></div>
+
+                    <details class="proj-context-details" id="demoContextDetails" hidden>
+                      <summary class="proj-context-summary">View excerpt of retrieved context (first chunk text from API)</summary>
+                      <p class="proj-context-note" id="demoContextMeta"></p>
+                      <pre class="proj-context-excerpt" id="demoContextExcerpt"></pre>
+                    </details>
                   </div>
                 </div>
               </section>
@@ -329,7 +362,41 @@
       var wrap = document.getElementById('demoAnswerWrap');
       var ans = document.getElementById('demoAnswer');
       var srcList = document.getElementById('demoSources');
+      var ctxDetails = document.getElementById('demoContextDetails');
+      var ctxExcerpt = document.getElementById('demoContextExcerpt');
+      var ctxMeta = document.getElementById('demoContextMeta');
       if (!askBtn || !q) return;
+
+      function resetContextDetails() {
+        if (!ctxDetails || !ctxExcerpt || !ctxMeta) return;
+        ctxDetails.hidden = true;
+        ctxDetails.open = false;
+        ctxExcerpt.textContent = '';
+        ctxMeta.textContent = '';
+      }
+
+      function fillContextDetails(chunks) {
+        if (!ctxDetails || !ctxExcerpt || !ctxMeta) return;
+        if (!chunks || !chunks.length) {
+          resetContextDetails();
+          return;
+        }
+        var first = chunks[0];
+        var text = (first && first.text) ? String(first.text) : '';
+        if (!text.trim()) {
+          resetContextDetails();
+          return;
+        }
+        var maxLen = 900;
+        var excerpt = text.length > maxLen ? text.slice(0, maxLen) + '\n…' : text;
+        ctxExcerpt.textContent = excerpt;
+        var parts = [];
+        if (first.document_name) parts.push(first.document_name);
+        if (first.page_number != null) parts.push('page ' + first.page_number);
+        if (first.score != null && first.score !== '') parts.push('score ' + Number(first.score).toFixed(4));
+        ctxMeta.textContent = parts.length ? 'First retrieved row: ' + parts.join(' · ') : 'First retrieved row (API payload).';
+        ctxDetails.hidden = false;
+      }
 
       document.querySelectorAll('.proj-example-chip').forEach(function (chip) {
         chip.addEventListener('click', function () {
@@ -385,6 +452,7 @@
         wrap.hidden = true;
         ans.textContent = '';
         srcList.innerHTML = '';
+        resetContextDetails();
         if (!text) {
           statusEl.textContent = 'Enter a question or choose an example above.';
           statusEl.classList.add('is-error');
@@ -427,8 +495,14 @@
               empty.textContent = 'No source list returned for this answer.';
               srcList.appendChild(empty);
             }
+            fillContextDetails(r.data.retrieved_chunks);
             wrap.hidden = false;
             statusEl.textContent = 'Response received.';
+            try {
+              wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } catch (e) {
+              wrap.scrollIntoView(true);
+            }
           })
           .catch(function (err) {
             setLoading(false);
