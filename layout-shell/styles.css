@@ -1206,6 +1206,11 @@ body {
   margin-bottom: 0.65rem;
 }
 
+/* [hidden] must win: a bare `display: flex` would override the UA display:none from the hidden attribute. */
+.proj-demo-progress[hidden] {
+  display: none !important;
+}
+
 .proj-demo-progress {
   display: flex;
   align-items: center;
