@@ -1,0 +1,16 @@
+Customer Onboarding Policy
+
+1. Scope
+This policy applies to all new customers signing up for our services.
+
+2. Onboarding Steps
+- Account creation within 24 hours of signup.
+- Welcome email with login credentials and quick start guide.
+- Mandatory orientation call within the first 5 business days.
+- First success check at 30 days.
+
+3. Cancellation During Onboarding
+Customers may cancel within the first 14 days for a full refund. After 14 days, standard cancellation policy applies.
+
+4. Contact
+For onboarding support, contact onboarding@company.com.

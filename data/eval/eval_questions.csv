@@ -1,0 +1,23 @@
+question,expected_document,expected_answer_summary,difficulty
+What is the cancellation policy?,refund_and_cancellation_policy.txt,Written notice 14 days before renewal,easy
+How do I get a refund?,refund_and_cancellation_policy.txt,Full refund within 14 days,easy
+What are the onboarding steps?,customer_onboarding_policy.txt,Account creation welcome call orientation,easy
+What is the incident severity P1?,incident_response_manual.txt,Full outage 15 min response,easy
+What is the support workflow?,technical_support_workflow.txt,Ticket triage resolution escalation,medium
+What are the pricing plans?,pricing_rules_guide.txt,Basic Pro Enterprise,easy
+What is the service level uptime?,service_level_policy.txt,99.9% Pro Enterprise,easy
+Where is the escalation matrix?,incident_response_manual.txt,escalation_matrix.pdf,medium
+How do I process a refund?,internal_faq.txt,refund policy 14 days,medium
+When is the orientation call?,customer_onboarding_policy.txt,Within 5 business days,easy
+What happens after three failed payments?,billing_policy.txt,Account suspended restore within 14 days,medium
+What payment methods does Enterprise support?,billing_policy.txt,Invoice net-30 ACH credit card,easy
+What is the P1 escalation path?,internal_faq.txt,incident manual on-call 30 minutes,medium
+Where is the onboarding checklist?,internal_faq.txt,customer_onboarding_policy steps,medium
+How long is first response for standard tickets?,technical_support_workflow.txt,4 business hours,easy
+When to escalate to Tier 2?,technical_support_workflow.txt,Not resolved 2 business days,medium
+What is P2 incident response time?,incident_response_manual.txt,1 hour significant degradation,easy
+What is P4 response SLA?,incident_response_manual.txt,24 hours low impact,easy
+How is billing cycle determined?,billing_policy.txt,Same as signup date monthly annual,easy
+Can we offer custom discounts?,internal_faq.txt,Sales approval pricing_rules_guide,medium
+What must tickets include?,technical_support_workflow.txt,Customer ID description severity reproduce,easy
+What are P3 and P4 severity levels?,incident_response_manual.txt,Minor 4h low 24h,medium

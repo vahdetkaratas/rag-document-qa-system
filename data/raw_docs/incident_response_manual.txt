@@ -1,0 +1,19 @@
+Incident Response Manual
+
+1. Definition
+An incident is any unplanned event that causes or may cause disruption to services.
+
+2. Severity Levels
+- P1: Full outage, multiple customers affected. Response within 15 minutes.
+- P2: Significant degradation. Response within 1 hour.
+- P3: Minor impact. Response within 4 hours.
+- P4: Low impact. Response within 24 hours.
+
+3. Response Steps
+1) Detect and log the incident.
+2) Assign severity and notify the on-call engineer.
+3) Communicate status to stakeholders every 30 minutes for P1/P2.
+4) Resolve and document root cause within 5 business days for P1/P2.
+
+4. Escalation
+If not resolved within SLA, escalate to the next level. See escalation_matrix.pdf for contacts.

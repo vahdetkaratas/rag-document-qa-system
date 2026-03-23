@@ -1,0 +1,16 @@
+Refund and Cancellation Policy
+
+1. Cancellation
+- Written notice required at least 14 days before the next renewal date.
+- Cancellation takes effect at the end of the current billing period.
+- No partial refunds for unused time in the current period.
+
+2. Refunds
+- Full refund if cancellation request is received within 14 days of initial purchase.
+- After 14 days, no refund for the current period. Prepaid future periods may be refunded at 50% if more than 30 days remain.
+
+3. Exceptions
+- Service failures lasting more than 72 hours may qualify for credit or refund. Open a ticket with support.
+
+4. How to Cancel
+Send an email to billing@company.com with subject "Cancellation" and your account ID. You will receive confirmation within 2 business days.

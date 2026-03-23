@@ -1,0 +1,126 @@
+document_name,page_number,text,char_count
+billing_policy.txt,1,"Billing Policy
+
+1. Billing Cycle
+All plans are billed in advance monthly or annually. The billing date is the same as the signup date.
+
+2. Payment Methods
+We accept credit card and ACH. Invoice payment is available for Enterprise plans with net-30 terms.
+
+3. Failed Payments
+We retry failed payments after 3 and 7 days. After 3 failures, the account is suspended. Restore within 14 days to avoid data deletion.
+
+4. Invoices
+Invoices are available in the billing portal. For duplicate or corrected invoices, contact billing@company.com within 30 days.",551
+customer_onboarding_policy.txt,1,"Customer Onboarding Policy
+
+1. Scope
+This policy applies to all new customers signing up for our services.
+
+2. Onboarding Steps
+- Account creation within 24 hours of signup.
+- Welcome email with login credentials and quick start guide.
+- Mandatory orientation call within the first 5 business days.
+- First success check at 30 days.
+
+3. Cancellation During Onboarding
+Customers may cancel within the first 14 days for a full refund. After 14 days, standard cancellation policy applies.
+
+4. Contact
+For onboarding support, contact onboarding@company.com.",554
+incident_response_manual.txt,1,"Incident Response Manual
+
+1. Definition
+An incident is any unplanned event that causes or may cause disruption to services.
+
+2. Severity Levels
+- P1: Full outage, multiple customers affected. Response within 15 minutes.
+- P2: Significant degradation. Response within 1 hour.
+- P3: Minor impact. Response within 4 hours.
+- P4: Low impact. Response within 24 hours.
+
+3. Response Steps
+1) Detect and log the incident.
+2) Assign severity and notify the on-call engineer.
+3) Communicate status to stakeholders every 30 minutes for P1/P2.
+4) Resolve and document root cause within 5 business days for P1/P2.
+
+4. Escalation
+If not resolved within SLA, escalate to the next level. See escalation_matrix.pdf for contacts.",713
+internal_faq.txt,1,"Internal FAQ
+
+Q: How do I process a refund?
+A: Check refund_and_cancellation_policy. Within 14 days of purchase, full refund. After that, no refund for current period. Use the billing portal or email billing@company.com.
+
+Q: What is the escalation path for P1?
+A: See incident_response_manual and escalation_matrix. Notify on-call immediately; they escalate if not resolved in 30 minutes.
+
+Q: Can we offer a custom discount?
+A: Standard discounts are in pricing_rules_guide. For custom deals, get approval from Sales and document in CRM.
+
+Q: Where is the onboarding checklist?
+A: customer_onboarding_policy lists the steps. Orientation call within 5 business days is mandatory.",678
+pricing_rules_guide.txt,1,"Pricing Rules Guide
+
+1. Standard Plans
+- Basic: $29/month, 1 user, 5 projects.
+- Pro: $79/month, 5 users, 20 projects.
+- Enterprise: Custom pricing, unlimited users and projects.
+
+2. Discounts
+- Annual billing: 2 months free (pay for 10, get 12).
+- Non-profit: 20% discount with valid proof.
+
+3. Add-ons
+- Extra users: $15/user/month on Pro.
+- Extra storage: $5/10 GB/month.
+
+4. Price Changes
+We give 30 days notice for any price increase. You may cancel before the change takes effect without penalty.",503
+refund_and_cancellation_policy.txt,1,"Refund and Cancellation Policy
+
+1. Cancellation
+- Written notice required at least 14 days before the next renewal date.
+- Cancellation takes effect at the end of the current billing period.
+- No partial refunds for unused time in the current period.
+
+2. Refunds
+- Full refund if cancellation request is received within 14 days of initial purchase.
+- After 14 days, no refund for the current period. Prepaid future periods may be refunded at 50% if more than 30 days remain.
+
+3. Exceptions
+- Service failures lasting more than 72 hours may qualify for credit or refund. Open a ticket with support.
+
+4. How to Cancel
+Send an email to billing@company.com with subject ""Cancellation"" and your account ID. You will receive confirmation within 2 business days.",756
+service_level_policy.txt,1,"Service Level Policy
+
+1. Uptime
+We target 99.9% uptime for the Pro and Enterprise plans. Basic plan target is 99.5%.
+
+2. Support Response
+- Pro and Enterprise: 4-hour first response for standard tickets.
+- Basic: 24-hour first response.
+- P1 incidents: 15-minute response for all plans.
+
+3. Credits
+If we fail to meet the uptime SLA in a calendar month, you may request a service credit. Pro: 10% credit for 99.0–99.9% uptime, 25% below 99.0%. Enterprise: negotiated in contract.
+
+4. Exclusions
+Scheduled maintenance (announced 7 days in advance) and issues caused by customer actions are excluded from SLA calculations.",621
+technical_support_workflow.txt,1,"Technical Support Workflow
+
+1. Ticket Creation
+All support requests must be logged as tickets. Include: customer ID, description, severity, and steps to reproduce.
+
+2. Triage
+- First response within 4 business hours for standard tickets.
+- P1/P2 tickets follow the incident response manual.
+
+3. Resolution
+- Use the knowledge base and internal FAQ before escalating.
+- Document the solution in the ticket for future reference.
+- Close the ticket only after customer confirmation.
+
+4. Escalation
+If the issue is not resolved within 2 business days, escalate to Tier 2. See escalation_matrix.pdf.",595

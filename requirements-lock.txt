@@ -1,0 +1,9 @@
+# Lock file — generate in a project-specific venv (do not use global pip freeze):
+#
+#   python -m venv .venv
+#   .venv\Scripts\activate
+#   pip install -r requirements.txt
+#   pip freeze > requirements-lock.txt
+#
+# Use in CI or Docker: pip install -r requirements-lock.txt
+# (Includes transitive deps for reproducible installs.)

@@ -1,0 +1,23 @@
+question,answer,sources_count,expected_document
+What is the cancellation policy?,,5,refund_and_cancellation_policy.txt
+How do I get a refund?,,5,refund_and_cancellation_policy.txt
+What are the onboarding steps?,,5,customer_onboarding_policy.txt
+What is the incident severity P1?,,5,incident_response_manual.txt
+What is the support workflow?,,5,technical_support_workflow.txt
+What are the pricing plans?,,5,pricing_rules_guide.txt
+What is the service level uptime?,,5,service_level_policy.txt
+Where is the escalation matrix?,,5,incident_response_manual.txt
+How do I process a refund?,,5,internal_faq.txt
+When is the orientation call?,,5,customer_onboarding_policy.txt
+What happens after three failed payments?,,5,billing_policy.txt
+What payment methods does Enterprise support?,,5,billing_policy.txt
+What is the P1 escalation path?,,5,internal_faq.txt
+Where is the onboarding checklist?,,5,internal_faq.txt
+How long is first response for standard tickets?,,5,technical_support_workflow.txt
+When to escalate to Tier 2?,,5,technical_support_workflow.txt
+What is P2 incident response time?,,5,incident_response_manual.txt
+What is P4 response SLA?,,5,incident_response_manual.txt
+How is billing cycle determined?,,5,billing_policy.txt
+Can we offer custom discounts?,,5,internal_faq.txt
+What must tickets include?,,5,technical_support_workflow.txt
+What are P3 and P4 severity levels?,,5,incident_response_manual.txt

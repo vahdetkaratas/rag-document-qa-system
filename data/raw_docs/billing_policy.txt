@@ -1,0 +1,13 @@
+Billing Policy
+
+1. Billing Cycle
+All plans are billed in advance monthly or annually. The billing date is the same as the signup date.
+
+2. Payment Methods
+We accept credit card and ACH. Invoice payment is available for Enterprise plans with net-30 terms.
+
+3. Failed Payments
+We retry failed payments after 3 and 7 days. After 3 failures, the account is suspended. Restore within 14 days to avoid data deletion.
+
+4. Invoices
+Invoices are available in the billing portal. For duplicate or corrected invoices, contact billing@company.com within 30 days.

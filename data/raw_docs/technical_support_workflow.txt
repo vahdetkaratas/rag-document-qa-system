@@ -1,0 +1,16 @@
+Technical Support Workflow
+
+1. Ticket Creation
+All support requests must be logged as tickets. Include: customer ID, description, severity, and steps to reproduce.
+
+2. Triage
+- First response within 4 business hours for standard tickets.
+- P1/P2 tickets follow the incident response manual.
+
+3. Resolution
+- Use the knowledge base and internal FAQ before escalating.
+- Document the solution in the ticket for future reference.
+- Close the ticket only after customer confirmation.
+
+4. Escalation
+If the issue is not resolved within 2 business days, escalate to Tier 2. See escalation_matrix.pdf.

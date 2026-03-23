@@ -1,0 +1,17 @@
+Pricing Rules Guide
+
+1. Standard Plans
+- Basic: $29/month, 1 user, 5 projects.
+- Pro: $79/month, 5 users, 20 projects.
+- Enterprise: Custom pricing, unlimited users and projects.
+
+2. Discounts
+- Annual billing: 2 months free (pay for 10, get 12).
+- Non-profit: 20% discount with valid proof.
+
+3. Add-ons
+- Extra users: $15/user/month on Pro.
+- Extra storage: $5/10 GB/month.
+
+4. Price Changes
+We give 30 days notice for any price increase. You may cancel before the change takes effect without penalty.

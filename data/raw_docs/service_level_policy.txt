@@ -1,0 +1,15 @@
+Service Level Policy
+
+1. Uptime
+We target 99.9% uptime for the Pro and Enterprise plans. Basic plan target is 99.5%.
+
+2. Support Response
+- Pro and Enterprise: 4-hour first response for standard tickets.
+- Basic: 24-hour first response.
+- P1 incidents: 15-minute response for all plans.
+
+3. Credits
+If we fail to meet the uptime SLA in a calendar month, you may request a service credit. Pro: 10% credit for 99.0–99.9% uptime, 25% below 99.0%. Enterprise: negotiated in contract.
+
+4. Exclusions
+Scheduled maintenance (announced 7 days in advance) and issues caused by customer actions are excluded from SLA calculations.

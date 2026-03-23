@@ -1,0 +1,13 @@
+Internal FAQ
+
+Q: How do I process a refund?
+A: Check refund_and_cancellation_policy. Within 14 days of purchase, full refund. After that, no refund for current period. Use the billing portal or email billing@company.com.
+
+Q: What is the escalation path for P1?
+A: See incident_response_manual and escalation_matrix. Notify on-call immediately; they escalate if not resolved in 30 minutes.
+
+Q: Can we offer a custom discount?
+A: Standard discounts are in pricing_rules_guide. For custom deals, get approval from Sales and document in CRM.
+
+Q: Where is the onboarding checklist?
+A: customer_onboarding_policy lists the steps. Orientation call within 5 business days is mandatory.

@@ -1,0 +1,46 @@
+# Fast: exclude embedding/FAISS tests. Full: on main push, build index + run slow tests.
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test-fast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Pytest (excluding slow)
+        run: pytest tests -q -m "not slow" --tb=short
+
+  test-full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Cache Hugging Face
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+      - run: pip install -r requirements.txt
+      - name: Build index
+        run: |
+          python -m src.ingestion.run_extraction
+          python -m src.ingestion.run_chunking
+          python -c "from src.pipeline.indexing_pipeline import run_indexing_pipeline; run_indexing_pipeline()"
+      - name: Pytest (all)
+        run: pytest tests -q --tb=short
+        env:
+          HF_HUB_DISABLE_SYMLINKS_WARNING: "1"
