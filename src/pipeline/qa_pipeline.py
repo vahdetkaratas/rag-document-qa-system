@@ -61,6 +61,12 @@ def run_qa(
     if use_llm and min_score > 0 and chunks:
         best = max(float(c.get("score") or 0.0) for c in chunks)
         if best < min_score:
+            logger.warning(
+                "QA: RETRIEVAL_MIN_SCORE blocked LLM call (best_score=%.4f, min_score=%.4f, top_k=%s)",
+                best,
+                min_score,
+                len(chunks),
+            )
             return {
                 "answer": FALLBACK_ANSWER,
                 "sources": sources,
@@ -80,6 +86,7 @@ def run_qa(
     except ValueError as e:
         if "OPENAI_API_KEY" in str(e):
             raise
+        logger.warning("QA: generate_answer raised ValueError; using fallback: %s", e)
         answer = FALLBACK_ANSWER
     except Exception as e:
         logger.warning("LLM generation failed; using fallback (type=%s)", type(e).__name__)

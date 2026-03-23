@@ -26,7 +26,8 @@ def test_health(client):
 
 def test_ask_empty_question(client):
     r = client.post("/ask", json={"question": ""})
-    assert r.status_code == 400
+    # Pydantic validates min_length=1 before the route runs
+    assert r.status_code == 422
 
 
 def test_ask_missing_question(client):

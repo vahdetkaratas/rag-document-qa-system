@@ -12,3 +12,6 @@ venv/
 *.egg-info/
 dist/
 build/
+rag.md
+rep.md
+vps-deploy.md
