@@ -1120,6 +1120,48 @@ body {
   max-width: 100%;
 }
 
+.proj-demo-hint {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-3);
+  line-height: 1.45;
+}
+
+.proj-example-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+}
+
+.proj-example-chip {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-2);
+  background: rgba(45, 45, 58, 0.55);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: var(--tr-sm), border-color 0.15s ease;
+  text-align: left;
+  line-height: 1.35;
+}
+
+.proj-example-chip:hover {
+  color: var(--text-1);
+  border-color: rgba(255, 193, 7, 0.4);
+  background: rgba(45, 45, 58, 0.85);
+}
+
+.proj-example-chip:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.35);
+}
+
 .proj-demo-label {
   display: block;
   margin-bottom: 0.5rem;
@@ -1151,19 +1193,63 @@ body {
   border-color: rgba(255, 193, 7, 0.45);
 }
 
+.proj-demo-input:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 .proj-demo-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.proj-demo-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(255, 193, 7, 0.08);
+  border: 1px solid rgba(255, 193, 7, 0.22);
+  border-radius: 4px;
+  color: var(--text-1);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.proj-demo-spinner {
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid rgba(255, 193, 7, 0.25);
+  border-top-color: var(--main-color);
+  border-radius: 50%;
+  animation: proj-spin 0.7s linear infinite;
+}
+
+@keyframes proj-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.proj-demo-progress-text {
+  color: var(--text-2);
 }
 
 .proj-demo-status {
+  margin: 0 0 0.5rem;
   font-size: 0.8rem;
   color: var(--text-3);
-  flex: 1;
-  min-width: 8rem;
+  line-height: 1.45;
+  min-height: 1.2em;
+}
+
+.proj-demo-status.is-error {
+  color: #e8a598;
 }
 
 .proj-demo-out-title {
@@ -1175,7 +1261,34 @@ body {
   color: var(--text-3);
 }
 
-.proj-demo-out .proj-demo-out-title + .proj-demo-answer {
+.proj-sources-heading {
+  margin-top: 1.25rem;
+}
+
+.proj-sources-lead {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+.proj-answer-grounding {
+  margin: 0 0 0.65rem;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-2);
+  background: rgba(255, 193, 7, 0.06);
+  border-left: 3px solid rgba(255, 193, 7, 0.45);
+  border-radius: 0 3px 3px 0;
+}
+
+.proj-answer-grounding strong {
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+.proj-demo-out .proj-demo-out-title + .proj-answer-grounding + .proj-demo-answer {
   margin-top: 0;
 }
 
@@ -1191,6 +1304,59 @@ body {
   white-space: pre-wrap;
 }
 
+.proj-sources-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.proj-source-card {
+  padding: 0.75rem 0.9rem;
+  background: var(--card-s-light);
+  border: 1px solid var(--border-soft);
+  border-radius: 4px;
+  box-shadow: var(--shadow-2);
+}
+
+.proj-source-doc {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.proj-source-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.proj-source-meta dt {
+  margin: 0;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.proj-source-meta dd {
+  margin: 0;
+  color: var(--text-2);
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+  font-size: 0.76rem;
+  word-break: break-all;
+}
+
+.proj-sources-empty {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-3);
+  font-style: italic;
+}
+
+/* Legacy: flat list if reused elsewhere */
 .proj-sources {
   margin: 0;
   padding-left: 1.1rem;

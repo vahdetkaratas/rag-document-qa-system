@@ -77,6 +77,14 @@ When `RAG_API_KEY` is set, limits apply **per key**; otherwise **per client IP**
 
 Answers depend on **`OPENAI_API_KEY`** and **`OPENAI_MODEL`**, or **`OPENAI_API_BASE`** + model for OpenAI-compatible hosts (e.g. Ollama). Optional **`RETRIEVAL_MIN_SCORE`**: if the best retrieval score is below this threshold, the API returns a **fallback answer** without calling the LLM (chunks are still returned in `retrieved_chunks` for debugging).
 
+### Cross-origin (browser) calls
+
+If your **frontend** is on another host than the API (e.g. site on `https://vahdetkaratas.com`, API on `https://rag.…`),
+set **`CORS_ORIGINS`** on the API server to a **comma-separated list of exact origins** (scheme + host + port, **no trailing slash**), e.g.
+`https://vahdetkaratas.com,https://www.vahdetkaratas.com`.
+
+If **`CORS_ORIGINS` is empty**, the API allows **`*`** (any origin). If you set **`CORS_ORIGINS`** to only dev URLs (e.g. localhost), **production pages will fail** with a browser “Failed to fetch” / CORS error.
+
 See repository **`.env.example`** and **`docs/USAGE_GUIDE.md`** for full env list.
 """
 
@@ -91,8 +99,20 @@ OPENAPI_TAGS = [
     },
 ]
 
+def _parse_cors_origins(raw: str) -> list[str]:
+    """Comma-separated origins; strip whitespace and trailing slashes (browsers send Origin without /)."""
+    if not (raw or "").strip():
+        return ["*"]
+    out = []
+    for o in raw.split(","):
+        o = o.strip().rstrip("/")
+        if o:
+            out.append(o)
+    return out if out else ["*"]
+
+
 _cors = os.getenv("CORS_ORIGINS", "").strip()
-_allow_origins = [o.strip() for o in _cors.split(",") if o.strip()] if _cors else ["*"]
+_allow_origins = _parse_cors_origins(_cors)
 
 _rl = (os.getenv("API_RATE_LIMIT") or "30/minute").strip().lower()
 if _rl in ("", "off", "none", "0", "false"):
@@ -119,6 +139,7 @@ limiter = Limiter(key_func=_rate_limit_key, default_limits=[])
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("RAG API process starting")
+    logger.info("CORS allow_origins=%s", _allow_origins)
     try:
         from src.retrieval import retrieve as retrieve_mod
 
@@ -146,7 +167,13 @@ app = FastAPI(
 )
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-app.add_middleware(CORSMiddleware, allow_origins=_allow_origins, allow_methods=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_allow_origins,
+    allow_methods=["*"],
+    # POST /ask uses Content-Type: application/json (non-“simple”); browser preflight must allow it + optional API key header.
+    allow_headers=["*"],
+)
 
 
 def custom_openapi():

@@ -226,18 +226,37 @@
                   Calls <code>POST https://rag.vahdetkaratas.com/ask</code> from your browser.
                   If the request is blocked (e.g. CORS or API key on the server), use <a href="https://rag.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">Swagger UI</a> or curl instead.
                 </p>
-                <div class="proj-demo">
-                  <label class="proj-demo-label" for="demoQuestion">Question</label>
-                  <textarea id="demoQuestion" class="proj-demo-input" rows="3" placeholder="e.g. What are the P1 incident response times?"></textarea>
+                <div class="proj-demo" id="projDemo" aria-busy="false">
+                  <p class="proj-demo-hint">Try an example (fills the box; then press Ask):</p>
+                  <div class="proj-example-chips" role="group" aria-label="Example questions">
+                    <button type="button" class="proj-example-chip" data-q="What is the response time for P1 incidents?">P1 response time</button>
+                    <button type="button" class="proj-example-chip" data-q="What happens after 3 failed payments?">After 3 failed payments</button>
+                    <button type="button" class="proj-example-chip" data-q="What discount is offered for annual billing?">Annual billing discount</button>
+                    <button type="button" class="proj-example-chip" data-q="What uptime target is offered for Pro plans?">Pro plan uptime</button>
+                    <button type="button" class="proj-example-chip" data-q="When should a ticket be escalated to Tier 2?">Tier 2 escalation</button>
+                  </div>
+
+                  <label class="proj-demo-label" for="demoQuestion">Your question</label>
+                  <textarea id="demoQuestion" class="proj-demo-input" rows="3" placeholder="Type a question or pick an example above…" autocomplete="off"></textarea>
+
                   <div class="proj-demo-row">
                     <button type="button" class="proj-btn proj-btn-primary" id="demoAskBtn">Ask</button>
-                    <span class="proj-demo-status" id="demoStatus" aria-live="polite"></span>
                   </div>
+
+                  <div class="proj-demo-progress" id="demoProgress" hidden>
+                    <span class="proj-demo-spinner" aria-hidden="true"></span>
+                    <span class="proj-demo-progress-text">Searching documents and generating answer…</span>
+                  </div>
+                  <p class="proj-demo-status" id="demoStatus" aria-live="polite"></p>
+
                   <div class="proj-demo-out" id="demoAnswerWrap" hidden>
                     <h3 class="proj-demo-out-title">Answer</h3>
+                    <p class="proj-answer-grounding" id="demoGrounding">This answer was generated using retrieved document context. The passages listed under <strong>retrieved evidence</strong> are what the model was shown.</p>
                     <div class="proj-demo-answer" id="demoAnswer"></div>
-                    <h3 class="proj-demo-out-title">Sources</h3>
-                    <ul class="proj-sources" id="demoSources"></ul>
+
+                    <h3 class="proj-demo-out-title proj-sources-heading">Retrieved evidence</h3>
+                    <p class="proj-sources-lead">Chunks returned by the API as supporting context for the answer above.</p>
+                    <div class="proj-sources-cards" id="demoSources"></div>
                   </div>
                 </div>
               </section>
@@ -302,34 +321,82 @@
 
     (function () {
       var API = 'https://rag.vahdetkaratas.com/ask';
+      var demoRoot = document.getElementById('projDemo');
       var q = document.getElementById('demoQuestion');
       var askBtn = document.getElementById('demoAskBtn');
       var statusEl = document.getElementById('demoStatus');
+      var progressEl = document.getElementById('demoProgress');
       var wrap = document.getElementById('demoAnswerWrap');
       var ans = document.getElementById('demoAnswer');
       var srcList = document.getElementById('demoSources');
       if (!askBtn || !q) return;
 
+      document.querySelectorAll('.proj-example-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var t = chip.getAttribute('data-q') || '';
+          q.value = t;
+          q.focus();
+        });
+      });
+
       function setLoading(on) {
         askBtn.disabled = on;
-        askBtn.textContent = on ? 'Asking…' : 'Ask';
+        askBtn.setAttribute('aria-busy', on ? 'true' : 'false');
+        q.disabled = on;
+        if (demoRoot) demoRoot.setAttribute('aria-busy', on ? 'true' : 'false');
+        if (progressEl) progressEl.hidden = !on;
+        if (on) {
+          statusEl.textContent = '';
+          statusEl.classList.remove('is-error');
+        }
+      }
+
+      function buildSourceCard(s) {
+        var doc = s.document || '—';
+        var page = s.page != null ? String(s.page) : '—';
+        var cid = s.chunk_id || '—';
+        var art = document.createElement('article');
+        art.className = 'proj-source-card';
+        art.setAttribute('aria-label', 'Evidence: ' + doc);
+        var title = document.createElement('div');
+        title.className = 'proj-source-doc';
+        title.textContent = doc;
+        var meta = document.createElement('dl');
+        meta.className = 'proj-source-meta';
+        function row(dt, dd) {
+          var ddt = document.createElement('dt');
+          ddt.textContent = dt;
+          var ddd = document.createElement('dd');
+          ddd.textContent = dd;
+          meta.appendChild(ddt);
+          meta.appendChild(ddd);
+        }
+        row('Page', page);
+        row('Chunk ID', cid);
+        art.appendChild(title);
+        art.appendChild(meta);
+        return art;
       }
 
       askBtn.addEventListener('click', function () {
         var text = (q.value || '').trim();
         statusEl.textContent = '';
+        statusEl.classList.remove('is-error');
         wrap.hidden = true;
         ans.textContent = '';
         srcList.innerHTML = '';
         if (!text) {
-          statusEl.textContent = 'Enter a question.';
+          statusEl.textContent = 'Enter a question or choose an example above.';
+          statusEl.classList.add('is-error');
           return;
         }
         setLoading(true);
         fetch(API, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: text })
+          body: JSON.stringify({ question: text }),
+          mode: 'cors',
+          credentials: 'omit'
         })
           .then(function (res) {
             return res.json().then(function (data) {
@@ -341,28 +408,34 @@
             if (!r.ok) {
               var detail = r.data && (r.data.detail !== undefined ? r.data.detail : r.data);
               statusEl.textContent = 'HTTP ' + r.status + (detail ? ': ' + JSON.stringify(detail) : '');
+              statusEl.classList.add('is-error');
               return;
             }
             if (typeof r.data.answer !== 'string') {
               statusEl.textContent = 'Unexpected response shape.';
+              statusEl.classList.add('is-error');
               return;
             }
             ans.textContent = r.data.answer;
             var sources = r.data.sources || [];
             sources.forEach(function (s) {
-              var li = document.createElement('li');
-              var doc = s.document || '—';
-              var page = s.page != null ? s.page : '—';
-              var cid = s.chunk_id || '—';
-              li.textContent = doc + ' · page ' + page + ' · ' + cid;
-              srcList.appendChild(li);
+              srcList.appendChild(buildSourceCard(s));
             });
+            if (sources.length === 0) {
+              var empty = document.createElement('p');
+              empty.className = 'proj-sources-empty';
+              empty.textContent = 'No source list returned for this answer.';
+              srcList.appendChild(empty);
+            }
             wrap.hidden = false;
-            statusEl.textContent = sources.length ? 'OK' : 'OK (no sources array)';
+            statusEl.textContent = 'Response received.';
           })
           .catch(function (err) {
             setLoading(false);
-            statusEl.textContent = 'Request failed (network/CORS). Try API docs or run from an allowed origin. ' + (err.message || '');
+            statusEl.classList.add('is-error');
+            statusEl.textContent =
+              'Request failed (often CORS). On the API server set CORS_ORIGINS to this page origin (e.g. https://your-site.com). ' +
+              (err.message || '');
           });
       });
     })();
