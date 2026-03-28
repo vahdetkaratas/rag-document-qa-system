@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RAG Document Intelligence QA System — Vahdettin Karataş</title>
   <meta name="description" content="Document question-answering with FastAPI, FAISS, sentence-transformers, and OpenAI — retrieval-grounded answers with source citations.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
@@ -112,7 +113,7 @@
                 <div class="proj-actions">
                   <a class="proj-btn proj-btn-primary" href="#live-demo">Live demo</a>
                   <a class="proj-btn proj-btn-ghost" href="https://github.com/vahdetkaratas/rag-document-qa-system" target="_blank" rel="noopener noreferrer">GitHub</a>
-                  <a class="proj-btn proj-btn-ghost" href="https://rag.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">API docs</a>
+                  <a class="proj-btn proj-btn-ghost" href="https://rag-qa.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">API docs</a>
                 </div>
               </header>
 
@@ -241,7 +242,7 @@
               <section class="proj-section" aria-labelledby="deploy-heading">
                 <h2 id="deploy-heading">Deployment &amp; engineering</h2>
                 <div class="proj-prose">
-                  <p>The service runs as a <strong>Docker</strong> container exposing the FastAPI app on an internal port. <strong>Caddy</strong> terminates TLS and proxies public HTTPS to the container. The live instance is reachable at <a href="https://rag.vahdetkaratas.com/health" target="_blank" rel="noopener noreferrer"><code>rag.vahdetkaratas.com</code></a> with <code>GET /health</code> reporting index and metadata presence and whether retrieval is loaded in memory.</p>
+                  <p>The service runs as a <strong>Docker</strong> container exposing the FastAPI app on an internal port. <strong>Caddy</strong> terminates TLS and proxies public HTTPS to the container. The live instance is reachable at <a href="https://rag-qa.vahdetkaratas.com/health" target="_blank" rel="noopener noreferrer"><code>rag-qa.vahdetkaratas.com</code></a> with <code>GET /health</code> reporting index and metadata presence and whether retrieval is loaded in memory.</p>
                   <p>This matches a small production-style loop: build image → run on VPS → configure DNS and reverse proxy → verify health before sending traffic to <code>/ask</code>.</p>
                   <p><strong>Building the index &amp; artifacts</strong> (local or CI) is documented in the repo: see <a href="https://github.com/vahdetkaratas/rag-document-qa-system/blob/main/README.md" target="_blank" rel="noopener noreferrer"><code>README.md</code></a> and <a href="https://github.com/vahdetkaratas/rag-document-qa-system/blob/main/docs/PUBLISH.md" target="_blank" rel="noopener noreferrer"><code>docs/PUBLISH.md</code></a> for extraction → chunking → FAISS indexing and Docker notes.</p>
                 </div>
@@ -250,8 +251,8 @@
               <section class="proj-section proj-demo-section" id="live-demo" aria-labelledby="demo-heading">
                 <h2 id="demo-heading">Live demo</h2>
                 <p class="proj-section-intro">
-                  Calls <code>POST https://rag.vahdetkaratas.com/ask</code> from your browser.
-                  If the request is blocked (e.g. CORS or API key on the server), use <a href="https://rag.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">Swagger UI</a> or curl instead.
+                  Calls <code>POST https://rag-qa.vahdetkaratas.com/ask</code> from your browser.
+                  If the request is blocked (e.g. CORS or API key on the server), use <a href="https://rag-qa.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">Swagger UI</a> or curl instead.
                 </p>
                 <div class="proj-demo" id="projDemo" aria-busy="false">
                   <p class="proj-demo-hint">Try an example (fills the box; then press Ask):</p>
@@ -353,7 +354,7 @@
     })();
 
     (function () {
-      var API = 'https://rag.vahdetkaratas.com/ask';
+      var API = 'https://rag-qa.vahdetkaratas.com/ask';
       var demoRoot = document.getElementById('projDemo');
       var q = document.getElementById('demoQuestion');
       var askBtn = document.getElementById('demoAskBtn');
