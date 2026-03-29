@@ -63,7 +63,7 @@ pytest tests -q -m "not slow"
 
 - **Image:** `Dockerfile` copies the **full project root** into `/app`. **Artifacts must be built before `docker build`:** run extraction → chunking → indexing locally (or in CI), so `artifacts/embeddings/chunk_metadata.csv` and `artifacts/faiss_index/index.faiss` exist in the build context. The container **does not** rebuild the index on startup.
 - **Run:** listens on **`0.0.0.0:8000`** (internal port **8000**). Example: `docker build -t rag-qa .` then `docker run -p 8000:8000 --env-file .env rag-qa`.
-- **Env vars:** Same as local — at minimum **`OPENAI_API_KEY`** (or **`OPENAI_API_BASE` + `OPENAI_MODEL`** for Ollama). Optional: **`RAG_API_KEY`**, **`CORS_ORIGINS`**, **`RAG_PROJECT_ROOT`** (usually `/app` in Docker if `WORKDIR` is `/app`), rate limits, **`RETRIEVAL_MIN_SCORE`**. See **`.env.example`**.
+- **Env vars:** Same as local — at minimum **`OPENAI_API_KEY`** (or **`OPENAI_API_BASE` + `OPENAI_MODEL`** for Ollama). Optional: **`RAG_API_KEY`**, **`CORS_ORIGINS`**, **`RAG_PROJECT_ROOT`** (usually `/app` in Docker if `WORKDIR` is `/app`), rate limits, **`RETRIEVAL_MIN_SCORE`**. See **`.env.example`**. If the browser UI is on a **subdomain** (e.g. `https://rag.vahdetkaratas.com` vs apex site), include that origin explicitly in **`CORS_ORIGINS`**.
 - **Reverse proxy:** Put **Caddy** or **Nginx** in front; terminate TLS there and **`proxy_pass`** to `http://127.0.0.1:8000` (or the container’s published port).
 - **Health:** `GET /health` returns **`ready`** (true only if index + metadata files exist and are loaded in memory), plus `index_file`, `metadata_file`, `retrieval_loaded`. HTTP stays **200** while the process is alive; use **`ready`** for load-balancer / script checks.
 

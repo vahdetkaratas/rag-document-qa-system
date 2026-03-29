@@ -6,8 +6,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from src.embeddings.embed_chunks import load_embedding_model, embed_texts
+from src.embeddings.embed_chunks import load_embedding_model, embed_texts, resolve_embedding_model
 from src.config import CHUNK_OUTPUT
+from src.embeddings.embedding_manifest import manifest_path_for_index, write_embedding_manifest
 from src.embeddings.vector_store import save_faiss_index, FAISS_INDEX_PATH, EMBEDDINGS_PATH, METADATA_PATH
 from src.utils.file_helpers import ensure_dir
 
@@ -51,5 +52,8 @@ def run_indexing_pipeline(
     meta.to_csv(metadata_path, index=False)
 
     save_faiss_index(embeddings, index_path)
+    resolved = resolve_embedding_model()
+    dim = int(model.get_sentence_embedding_dimension())
+    write_embedding_manifest(manifest_path_for_index(index_path), resolved, dim)
     print(f"Indexing done: {len(embeddings)} chunks, index at {index_path}")
     return embeddings_path, metadata_path, index_path

@@ -12,6 +12,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Optional — bake MiniLM into the image so runtime never calls huggingface.co (uncomment; build host needs network):
+# RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2').save('/app/models/minilm')"
+# ENV EMBEDDING_MODEL=/app/models/minilm
+
 COPY . .
 
 # Ensure `import src` works regardless of process cwd (e.g. some process managers).

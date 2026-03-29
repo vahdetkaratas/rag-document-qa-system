@@ -16,5 +16,7 @@ CHUNK_OUTPUT = PROJECT_ROOT / "artifacts" / "chunks" / "chunked_documents.csv"
 EMBEDDINGS_PATH = PROJECT_ROOT / "artifacts" / "embeddings" / "chunk_embeddings.npy"
 METADATA_PATH = PROJECT_ROOT / "artifacts" / "embeddings" / "chunk_metadata.csv"
 FAISS_INDEX_PATH = PROJECT_ROOT / "artifacts" / "faiss_index" / "index.faiss"
+# Written next to the FAISS file at index build; validated at API startup when the index exists.
+EMBEDDING_MANIFEST_PATH = FAISS_INDEX_PATH.parent / "embedding_manifest.json"
 EVAL_QUESTIONS_PATH = PROJECT_ROOT / "data" / "eval" / "eval_questions.csv"
 EVAL_RESULTS_DIR = PROJECT_ROOT / "artifacts" / "eval_results"

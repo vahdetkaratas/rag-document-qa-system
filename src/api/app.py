@@ -24,7 +24,7 @@ from slowapi.util import get_remote_address
 from src.api.auth import require_rag_api_key_if_configured, _get_rag_key_from_request
 from src.api.schemas import AskRequest, AskResponse
 from src.api.service import ask
-from src.config import FAISS_INDEX_PATH, METADATA_PATH
+from src.config import EMBEDDING_MANIFEST_PATH, FAISS_INDEX_PATH, METADATA_PATH
 
 logger = logging.getLogger(__name__)
 
@@ -79,9 +79,9 @@ Answers depend on **`OPENAI_API_KEY`** and **`OPENAI_MODEL`**, or **`OPENAI_API_
 
 ### Cross-origin (browser) calls
 
-If your **frontend** is on another host than the API (e.g. site on `https://vahdetkaratas.com`, API on `https://rag.…`),
-set **`CORS_ORIGINS`** on the API server to a **comma-separated list of exact origins** (scheme + host + port, **no trailing slash**), e.g.
-`https://vahdetkaratas.com,https://www.vahdetkaratas.com`.
+If your **frontend** is on another host than the API (e.g. UI on `https://rag.vahdetkaratas.com`, API on `https://rag-qa.vahdetkaratas.com`),
+set **`CORS_ORIGINS`** on the API server to a **comma-separated list of exact origins** (scheme + host + port, **no trailing slash**)—include **subdomains** separately, e.g.
+`https://vahdetkaratas.com,https://www.vahdetkaratas.com,https://rag.vahdetkaratas.com`.
 
 If **`CORS_ORIGINS` is empty**, the API allows **`*`** (any origin). If you set **`CORS_ORIGINS`** to only dev URLs (e.g. localhost), **production pages will fail** with a browser “Failed to fetch” / CORS error.
 
@@ -149,6 +149,42 @@ async def lifespan(app: FastAPI):
         logger.warning("Retrieval preload skipped (artifacts not on disk): %s", e)
     except Exception:
         logger.exception("Retrieval preload failed")
+
+    # Load query encoder at startup so /ask does not block on first request trying huggingface.co
+    # (offline VPS: set EMBEDDING_MODEL to a baked/mounted local model directory).
+    # Tests set EMBEDDING_SKIP_STARTUP_LOAD=1 (see tests/conftest.py) so pytest does not download ST.
+    _skip_warm = (os.getenv("EMBEDDING_SKIP_STARTUP_LOAD") or "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+    )
+    if _skip_warm:
+        logger.info("Embedding startup load skipped (EMBEDDING_SKIP_STARTUP_LOAD)")
+    else:
+        try:
+            from src.embeddings.embed_chunks import load_embedding_model, resolve_embedding_model
+            from src.embeddings.embedding_manifest import read_embedding_manifest, validate_embedding_contract
+
+            model = load_embedding_model()
+            resolved = resolve_embedding_model()
+            dim = int(model.get_sentence_embedding_dimension())
+            if FAISS_INDEX_PATH.exists():
+                if not EMBEDDING_MANIFEST_PATH.exists():
+                    raise RuntimeError(
+                        f"FAISS index exists at {FAISS_INDEX_PATH} but embedding manifest is missing "
+                        f"({EMBEDDING_MANIFEST_PATH}). Re-run the indexing pipeline to generate it."
+                    )
+                manifest = read_embedding_manifest(EMBEDDING_MANIFEST_PATH)
+                validate_embedding_contract(manifest, resolved, dim)
+                logger.info("Embedding contract OK (manifest matches loaded model)")
+            logger.info("Embedding model loaded (query encoding ready)")
+        except Exception:
+            logger.exception(
+                "Embedding model failed to load — /ask will error until EMBEDDING_MODEL is a reachable "
+                "local path or Hugging Face is reachable from the container"
+            )
+            raise
+
     yield
     logger.info("RAG API process shutting down")
 
