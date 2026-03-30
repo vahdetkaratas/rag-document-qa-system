@@ -2,7 +2,7 @@
 
 Question–answering over policy/handbook-style documents using **semantic retrieval + LLM**. Answers are grounded in retrieved chunks and return **sources (document, page, chunk_id)**.
 
-**Doc index:** [docs/README.md](docs/README.md) · **Issues / plan:** [docs/ISSUES_AND_REMEDIATION_PLAN.md](docs/ISSUES_AND_REMEDIATION_PLAN.md) · **Publishing:** [docs/PUBLISH.md](docs/PUBLISH.md)
+**Doc index:** [docs/README.md](docs/README.md)
 
 ---
 

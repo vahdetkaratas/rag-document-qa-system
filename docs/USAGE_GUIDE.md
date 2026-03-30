@@ -1,6 +1,6 @@
 # RAG Document Intelligence QA System — Usage Guide
 
-This document describes the project purpose, setup, run steps, expected outputs, and GitHub/deploy options.
+This document describes the project purpose, setup, run steps, expected outputs, and API usage.
 
 ---
 
@@ -201,15 +201,7 @@ pytest tests -q -m "not slow"   # skip slow embedding tests
 
 ---
 
-## 9. Publishing and Deploy
-
-See **docs/PUBLISH.md** for what to add to the repo and full deployment notes. Summary:
-
-- **Recommended:** Deploy the RAG API (FastAPI + FAISS + indexing) on **Render, Railway, or Fly.io**. Use **Ollama** on the same host (or another server) with `OPENAI_API_BASE` and `OPENAI_MODEL` for free answer generation.
-- **Vercel:** The full RAG stack (heavy deps, FAISS, Ollama) does **not** run on Vercel. You can use **Vercel for the frontend only** and call your backend (hosted elsewhere) from the UI. Ollama must run on that backend host or a separate server.
-- **Quality:** Retrieval and source citations are the same with Ollama or OpenAI; only the answer text depends on the chosen LLM. Using Ollama does not lower the project’s technical quality.
-- **Cost:** Either pay for **OpenAI API** (per use) or pay for a **server** to run Ollama 24/7. For low/medium traffic (demo, portfolio), OpenAI is usually cheaper ($0–few $/month); a 24/7 server is ~$5–7/month. Ollama is free only if you run everything locally.
-- **Abuse protection (OpenAI):** Set **RAG_API_KEY** so only your clients can call the API. Default limits: **30/minute** and **100/hour** per key (or per IP). Suitable for portfolio demos; set **API_RATE_LIMIT_HOUR=off** to disable the hourly cap. For a **total spending cap**, set a **budget limit** in the OpenAI dashboard. See **docs/PUBLISH.md**.
+## 9. API Access Notes
 
 **Where to enter the API key:** (1) **Server:** Put your secret in the **environment** where the API runs: project root `.env` (e.g. `RAG_API_KEY=your-secret-key`) or your host’s env vars (Render, Railway, etc.). Do not commit `.env`. (2) **Client (frontend / Postman / curl):** Send the **same value** in every request to `POST /ask` using one of these headers: **`X-RAG-API-Key: your-secret-key`** or **`Authorization: Bearer your-secret-key`**. If the key is missing or wrong, the API returns 401.
 
@@ -220,8 +212,4 @@ See **docs/PUBLISH.md** for what to add to the repo and full deployment notes. S
 | File | Description |
 |------|-------------|
 | **README.md** | Overview, setup, limitations |
-| **docs/PROJECT_DECISION_RECORD.md** | Scope, why RAG, recruiter checklist |
 | **docs/RAG_SYSTEM_DESIGN.md** | Pipeline, retrieval, API design |
-| **docs/MILESTONES.md** | 7 milestones |
-| **docs/IMPLEMENTATION_REFERENCE.md** | Paths, schemas, API key setup |
-| **docs/PUBLISH.md** | What to commit; deploy (Render, Railway, local) |

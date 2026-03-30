@@ -12,6 +12,11 @@ venv/
 *.egg-info/
 dist/
 build/
-rag.md
 rep.md
-vps-deploy.md
+layout-shell/
+# Internal planning / working docs (keep local, do not publish)
+docs/ISSUES_AND_REMEDIATION_PLAN.md
+docs/MILESTONES.md
+docs/PROJECT_DECISION_RECORD.md
+docs/IMPLEMENTATION_REFERENCE.md
+docs/PUBLISH.md
