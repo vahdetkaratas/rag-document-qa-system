@@ -76,7 +76,24 @@
     "recruiter": {
       "pageTitle": "RAG Document QA - Applied ML / Data Systems",
       "eyebrow": "Portfolio artifact - retrieval + serving",
-      "summary": "Retrieval-augmented question answering with chunked documents, FAISS search, FastAPI serving, cited answers, and explicit deployment boundaries.",
+      "summary": "Role-fit proof of engineering ownership: I designed and shipped a production-minded RAG API with retrieval, explicit source citations, deployment on VPS, and embedding consistency checks between indexing and startup serving.",
+      "projectLinks": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
+          "external": true
+        },
+        {
+          "label": "API docs",
+          "href": "https://rag-qa.vahdetkaratas.com/docs",
+          "external": true
+        },
+        {
+          "label": "CV / profile",
+          "href": "https://vahdetkaratas.com/",
+          "external": true
+        }
+      ],
       "relatedSystems": [
         {
           "label": "Portfolio",
@@ -98,21 +115,21 @@
     "commercial": {
       "pageTitle": "RAG Document QA - Commercial capability demo",
       "eyebrow": "Capability demo - retrieval + grounded answers",
-      "summary": "Retrieval-augmented question answering demo for internal knowledge bases, document-heavy workflows, and cited answer delivery with explicit deployment boundaries.",
+      "summary": "Commercial capability proof for client delivery: private document QA over internal knowledge, retrieval-grounded answers for support and operations workflows, and deployable API delivery with clear source traceability.",
       "projectLinks": [
         {
-          "label": "GitHub",
-          "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
+          "label": "Book intro call",
+          "href": "https://vahdetlabs.com/contact",
+          "external": true
+        },
+        {
+          "label": "Capability brief",
+          "href": "https://vahdetlabs.com/",
           "external": true
         },
         {
           "label": "API docs",
           "href": "https://rag-qa.vahdetkaratas.com/docs",
-          "external": true
-        },
-        {
-          "label": "Deploy notes",
-          "href": "https://github.com/vahdetkaratas/rag-document-qa-system#deployment",
           "external": true
         }
       ],

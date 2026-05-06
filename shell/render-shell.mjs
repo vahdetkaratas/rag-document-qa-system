@@ -170,6 +170,7 @@ async function main() {
     )
     .replaceAll("{{CONTENT_HTML}}", bodyHtml);
 
+  await fs.rm(outDir, { recursive: true, force: true });
   await fs.mkdir(outDir, { recursive: true });
   await fs.writeFile(path.join(outDir, "index.html"), rendered, "utf8");
 
