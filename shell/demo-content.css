@@ -1,0 +1,59 @@
+.shell-project-body section,
+.shell-project-body article,
+.shell-project-body .demo-section,
+.shell-project-body .project-section {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+}
+
+.shell-project-body h2,
+.shell-project-body h3 {
+  margin-top: 0;
+}
+
+.shell-project-body p,
+.shell-project-body li {
+  color: #c8cedb;
+  line-height: 1.75;
+}
+
+.shell-project-body ul,
+.shell-project-body ol {
+  padding-left: 20px;
+}
+
+.shell-project-body pre {
+  overflow-x: auto;
+  padding: 16px;
+  border-radius: 14px;
+  background: #0d0f14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f3f5fb;
+}
+
+.shell-project-body table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.shell-project-body th,
+.shell-project-body td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+
+.shell-project-body .shell-inline-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.shell-project-body .shell-inline-card {
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(125, 211, 252, 0.05);
+  border: 1px solid rgba(125, 211, 252, 0.14);
+}

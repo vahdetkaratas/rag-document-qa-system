@@ -1,0 +1,138 @@
+{
+  "pageTitle": "RAG Document QA - Applied ML / Data Systems",
+  "title": "RAG document intelligence QA",
+  "eyebrow": "Portfolio artifact - retrieval + serving",
+  "summary": "Retrieval-augmented question answering with chunked documents, FAISS search, FastAPI serving, cited answers, and explicit deployment boundaries.",
+  "metaDescription": "RAG system with retrieval, FastAPI serving, source citations, API docs, and deployable infrastructure notes.",
+  "stack": [
+    "FastAPI",
+    "FAISS",
+    "sentence-transformers",
+    "Docker",
+    "OpenAI / Ollama"
+  ],
+  "projectLinks": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
+      "external": true
+    },
+    {
+      "label": "API docs",
+      "href": "https://rag-qa.vahdetkaratas.com/docs",
+      "external": true
+    },
+    {
+      "label": "Local run",
+      "href": "https://github.com/vahdetkaratas/rag-document-qa-system#readme",
+      "external": true
+    }
+  ],
+  "reviewLinks": [
+    {
+      "label": "GitHub repository",
+      "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
+      "external": true
+    },
+    {
+      "label": "API docs",
+      "href": "https://rag-qa.vahdetkaratas.com/docs",
+      "external": true
+    },
+    {
+      "label": "Deploy notes",
+      "href": "https://github.com/vahdetkaratas/rag-document-qa-system#deployment",
+      "external": true
+    },
+    {
+      "label": "Local run",
+      "href": "https://github.com/vahdetkaratas/rag-document-qa-system#readme",
+      "external": true
+    }
+  ],
+  "relatedSystems": [
+    {
+      "label": "Portfolio",
+      "href": "https://vahdetkaratas.com/portfolio",
+      "external": true
+    },
+    {
+      "label": "Batch scoring",
+      "href": "https://batch-scoring.vahdetkaratas.com/",
+      "external": true
+    },
+    {
+      "label": "Feature store",
+      "href": "https://feature-store.vahdetkaratas.com/",
+      "external": true
+    }
+  ],
+  "limitations": [
+    "Fixed corpus only; the system does not browse the open web.",
+    "Retrieval quality constrains answer quality.",
+    "LLM behavior still needs inspection even when sources are present."
+  ],
+  "profiles": {
+    "recruiter": {
+      "pageTitle": "RAG Document QA - Applied ML / Data Systems",
+      "eyebrow": "Portfolio artifact - retrieval + serving",
+      "summary": "Retrieval-augmented question answering with chunked documents, FAISS search, FastAPI serving, cited answers, and explicit deployment boundaries.",
+      "relatedSystems": [
+        {
+          "label": "Portfolio",
+          "href": "https://vahdetkaratas.com/portfolio",
+          "external": true
+        },
+        {
+          "label": "Batch scoring",
+          "href": "https://batch-scoring.vahdetkaratas.com/",
+          "external": true
+        },
+        {
+          "label": "Feature store",
+          "href": "https://feature-store.vahdetkaratas.com/",
+          "external": true
+        }
+      ]
+    },
+    "commercial": {
+      "pageTitle": "RAG Document QA - Commercial capability demo",
+      "eyebrow": "Capability demo - retrieval + grounded answers",
+      "summary": "Retrieval-augmented question answering demo for internal knowledge bases, document-heavy workflows, and cited answer delivery with explicit deployment boundaries.",
+      "projectLinks": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
+          "external": true
+        },
+        {
+          "label": "API docs",
+          "href": "https://rag-qa.vahdetkaratas.com/docs",
+          "external": true
+        },
+        {
+          "label": "Deploy notes",
+          "href": "https://github.com/vahdetkaratas/rag-document-qa-system#deployment",
+          "external": true
+        }
+      ],
+      "relatedSystems": [
+        {
+          "label": "Vahdetlabs",
+          "href": "https://vahdetlabs.com/",
+          "external": true
+        },
+        {
+          "label": "Batch scoring demo",
+          "href": "https://batch-scoring.vahdetlabs.com/",
+          "external": true
+        },
+        {
+          "label": "Feature store demo",
+          "href": "https://feature-store.vahdetlabs.com/",
+          "external": true
+        }
+      ]
+    }
+  }
+}
