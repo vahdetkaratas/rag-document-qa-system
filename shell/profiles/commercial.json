@@ -12,8 +12,8 @@
     "Internal APIs and automation"
   ],
   "reviewSectionTitle": "For client evaluation",
-  "relatedSectionTitle": "Related demos",
   "footerLabel": "Commercial ML / data systems capability demo",
+  "footerTagline": "ML and data systems for teams: retrieval, scoring, and tooling.",
   "socialLinks": [
     {
       "label": "GitHub",

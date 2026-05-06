@@ -1,6 +1,6 @@
 {
   "name": "Vahdettin Karatas",
-  "identity": "ML Engineer candidate - RAG, APIs, production workflows",
+  "identity": "Applied ML Engineer — RAG systems, APIs, production deployment",
   "location": "Prague, Czech Republic",
   "portfolioUrl": "https://vahdetkaratas.com/",
   "avatarUrl": "https://vahdetkaratas.com/img/face-1.jpg",
@@ -12,8 +12,8 @@
     "APIs and reproducible tooling"
   ],
   "reviewSectionTitle": "For hiring review",
-  "relatedSectionTitle": "Related portfolio systems",
   "footerLabel": "Applied ML / Data Systems portfolio artifact",
+  "footerTagline": "Applied ML, retrieval systems, and production APIs.",
   "socialLinks": [
     {
       "label": "GitHub",

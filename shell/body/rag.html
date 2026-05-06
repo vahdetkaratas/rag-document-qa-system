@@ -1,9 +1,9 @@
 <section class="proj-section" aria-labelledby="overview-heading">
   <h2 id="overview-heading">Overview</h2>
   <div class="proj-prose">
-    <p><strong>Problem.</strong> Teams store procedures, SLAs, and policies in text files or PDFs. Finding a precise answer quickly—without guessing—requires search that understands meaning, not just keywords.</p>
-    <p><strong>What this system does.</strong> It ingests chunked documents, builds dense vector embeddings, indexes them in FAISS, and exposes a REST API. Each <code>POST /ask</code> retrieves top-k chunks, assembles them into a prompt, and calls an OpenAI-compatible chat model. The response includes <strong>document name</strong>, <strong>page</strong>, and <strong>chunk id</strong> for each source.</p>
-    <p><strong>Why grounding matters.</strong> Pure LLM answers can confabulate on factual details (dates, SLAs, thresholds). Conditioning on retrieved passages ties the answer to specific text and makes errors easier to audit.</p>
+    <p><strong>Problem.</strong> Procedures, SLAs, and policies often live in PDFs and tickets. Keyword search misses paraphrases; teams need retrieval that matches meaning, not literal strings.</p>
+    <p><strong>System.</strong> Ingested chunks, dense embeddings, FAISS top-k, then an OpenAI-compatible chat model with the retrieved text in context. Responses carry <strong>document</strong>, <strong>page</strong>, and <strong>chunk id</strong> for each source so answers stay auditable.</p>
+    <p><strong>Grounding.</strong> The model only answers from retrieved passages in this deployment, which limits hallucination on corpus facts and makes mistakes easier to trace.</p>
   </div>
 </section>
 
@@ -114,7 +114,7 @@
 <section class="proj-section" aria-labelledby="deploy-heading">
   <h2 id="deploy-heading">Deployment &amp; engineering</h2>
   <div class="proj-prose">
-    <p>The service runs as a <strong>Docker</strong> container exposing the FastAPI app on an internal port. <strong>Caddy</strong> terminates TLS and proxies public HTTPS to the container. The live instance is reachable at <a href="https://rag-qa.vahdetkaratas.com/health" target="_blank" rel="noopener noreferrer"><code>rag-qa.vahdetkaratas.com</code></a> with <code>GET /health</code> reporting index and metadata presence and whether retrieval is loaded in memory.</p>
+    <p>The service runs as a <strong>Docker</strong> container exposing the FastAPI app on an internal port. <strong>Caddy</strong> terminates TLS and proxies public HTTPS to the container. The live instance exposes <code>GET /health</code> for index/metadata presence and retrieval readiness checks.</p>
     <p>This matches a small production-style loop: build image -> run on VPS -> configure DNS and reverse proxy -> verify health before sending traffic to <code>/ask</code>.</p>
     <p><strong>Build and run notes</strong> are documented in the repository <a href="https://github.com/vahdetkaratas/rag-document-qa-system/blob/main/README.md" target="_blank" rel="noopener noreferrer"><code>README.md</code></a> (extraction -> chunking -> FAISS indexing -> Docker).</p>
   </div>
@@ -123,8 +123,8 @@
 <section class="proj-section proj-demo-section" id="live-demo" aria-labelledby="demo-heading">
   <h2 id="demo-heading">Live demo</h2>
   <p class="proj-section-intro">
-    Calls <code>POST https://rag-qa.vahdetkaratas.com/ask</code> from your browser.
-    If the request is blocked (e.g. CORS or API key on the server), use <a href="https://rag-qa.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">Swagger UI</a> or curl instead.
+    Calls the public RAG API <code>POST /ask</code> endpoint from your browser.
+    If the request is blocked (e.g. CORS or API key on the server), use the API docs link above or curl instead.
   </p>
   <div class="proj-demo" id="projDemo" aria-busy="false">
     <p class="proj-demo-hint">Try an example (fills the box; then press Ask):</p>
@@ -170,7 +170,7 @@
 <section class="proj-section" aria-labelledby="value-heading">
   <h2 id="value-heading">Why this project</h2>
   <div class="proj-prose">
-    <p>The repo demonstrates a full <strong>retrieval + generation</strong> loop with a real <strong>HTTP API</strong> and <strong>deployed endpoint</strong> - not only notebooks or local scripts. Design choices (separate indexing from inference, explicit sources, health checks) reflect how similar systems are operated in practice.</p>
+    <p>This codebase is a full <strong>retrieve → prompt → answer</strong> path behind HTTP: separate offline indexing, FastAPI inference, and explicit sources—not a notebook-only sketch. The same patterns show up wherever teams need accountable answers from a fixed corpus.</p>
   </div>
 </section>
 
@@ -189,6 +189,21 @@
     var ctxExcerpt = document.getElementById("demoContextExcerpt");
     var ctxMeta = document.getElementById("demoContextMeta");
     if (!askBtn || !q) return;
+
+    /* Idle UI on load (no network — fetch only runs on button click below). */
+    if (progressEl) {
+      progressEl.hidden = true;
+    }
+    if (wrap) {
+      wrap.hidden = true;
+    }
+    if (statusEl) {
+      statusEl.textContent = "";
+      statusEl.classList.remove("is-error");
+    }
+    if (demoRoot) {
+      demoRoot.setAttribute("aria-busy", "false");
+    }
 
     function resetContextDetails() {
       if (!ctxDetails || !ctxExcerpt || !ctxMeta) return;
@@ -270,7 +285,9 @@
       return art;
     }
 
-    askBtn.addEventListener("click", function () {
+    askBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
       var text = (q.value || "").trim();
       statusEl.textContent = "";
       statusEl.classList.remove("is-error");

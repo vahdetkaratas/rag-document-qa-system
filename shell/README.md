@@ -82,7 +82,7 @@ The selected profile controls:
 - identity line
 - home/portfolio URL
 - technical-focus sidebar
-- review/related section labels
+- review section title
 - footer identity
 
 The selected project config can also carry profile-specific overrides under `profiles.<name>` for:
@@ -91,9 +91,9 @@ The selected project config can also carry profile-specific overrides under `pro
 - eyebrow
 - summary
 - project CTA links
-- related-system links
+- sidebar links: `relatedMlSystems` and `relatedDataTools` (rendered under headings **ML systems** and **Data tools**), or legacy `relatedSystems` as a single **Related** list
 
-For Batch Scoring, the same output can be copied into the repo's tracked static target such as `vercel_static/` or another deployment folder.
+For other projects, the same rendered output can be copied to any static web root (VPS, object storage, etc.).
 
 ## Pilot approach
 

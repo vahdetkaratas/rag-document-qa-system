@@ -4,26 +4,28 @@
     year.textContent = new Date().getFullYear();
   }
 
-  var sidebar = document.getElementById("shellSidebar");
-  var toggle = document.getElementById("shellSidebarToggle");
+  var btn = document.querySelector(".art-info-bar-btn");
+  var bar = document.querySelector(".art-info-bar");
   var curtain = document.getElementById("shellMobileCurtain");
-
-  if (!sidebar || !toggle || !curtain) {
-    return;
-  }
+  if (!btn || !bar) return;
 
   function setOpen(open) {
-    sidebar.classList.toggle("is-open", open);
-    curtain.classList.toggle("is-open", open);
-    toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    curtain.setAttribute("aria-hidden", open ? "false" : "true");
+    bar.classList.toggle("art-active", open);
+    btn.classList.toggle("art-active", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (curtain) {
+      curtain.classList.toggle("is-open", open);
+      curtain.setAttribute("aria-hidden", open ? "false" : "true");
+    }
   }
 
-  toggle.addEventListener("click", function () {
-    setOpen(!sidebar.classList.contains("is-open"));
+  btn.addEventListener("click", function () {
+    setOpen(!bar.classList.contains("art-active"));
   });
 
-  curtain.addEventListener("click", function () {
-    setOpen(false);
-  });
+  if (curtain) {
+    curtain.addEventListener("click", function () {
+      setOpen(false);
+    });
+  }
 })();
