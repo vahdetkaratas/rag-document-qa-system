@@ -1,23 +1,143 @@
 <style>
+  :root {
+    --main-color: #c77716;
+    --info-bar-1: #fffaf2;
+    --info-bar-2-a: #fffdf8;
+    --info-bar-2-b: #f8efe2;
+    --content-bg: #f7efe4;
+    --deep: #efe5d8;
+    --card-a: #ffffff;
+    --card-b: #fbf3e8;
+    --card-s-light: linear-gradient(159deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 239, 226, 0.94) 100%);
+    --text-1: #172033;
+    --text-2: #566070;
+    --text-3: #7b8492;
+    --border-soft: rgba(115, 87, 50, 0.16);
+    --shadow-1: 0 18px 50px rgba(72, 48, 22, 0.14);
+    --shadow-2: 0 10px 30px rgba(72, 48, 22, 0.1);
+  }
+
+  body {
+    background: #efe5d8;
+  }
+
+  .shell-card {
+    border: 1px solid rgba(115, 87, 50, 0.14);
+  }
+
+  .art-info-bar {
+    border-right: 1px solid rgba(115, 87, 50, 0.14);
+  }
+
+  .art-info-bar .art-header,
+  .art-ls-social {
+    background: linear-gradient(159deg, #fffdf8 0%, #f8efe2 100%);
+  }
+
   .art-info-bar .art-avatar {
     width: 74px;
     height: 74px;
     margin-bottom: 12px;
   }
 
+  .art-info-bar .art-name a,
+  .art-info-bar h6,
+  .art-table h6 {
+    color: #172033;
+  }
+
+  .art-info-bar a {
+    color: #384152;
+  }
+
+  .art-info-bar .art-knowledge-list li::before {
+    color: #c77716;
+  }
+
+  .batch-page {
+    --bg: #fffaf4;
+    --bg-elevated: #ffffff;
+    --border: #eadcc8;
+    --text: #172033;
+    --muted: #5b6473;
+    --accent: #c77716;
+    --accent-hover: #de8a24;
+    --accent-glow: rgba(199, 119, 22, 0.14);
+    --ok: #157a55;
+    color: var(--text);
+  }
+
+  .batch-page .wrap::before {
+    background:
+      radial-gradient(ellipse 70% 42% at 48% 0%, rgba(199, 119, 22, 0.16), transparent 60%),
+      radial-gradient(ellipse 50% 30% at 84% 8%, rgba(21, 122, 85, 0.08), transparent 65%);
+  }
+
+  .batch-page header {
+    border-bottom-color: rgba(115, 87, 50, 0.14);
+  }
+
+  .batch-page .logo {
+    color: #3b4556;
+  }
+
+  .batch-page .btn-ghost {
+    background: rgba(255, 255, 255, 0.58);
+    color: #4b5563;
+    border-color: #eadcc8;
+  }
+
+  .batch-page .btn-ghost:hover {
+    background: #ffffff;
+    color: #172033;
+    border-color: #d7b98f;
+  }
+
   .batch-page .hero {
-    padding: 2rem 1.75rem 1.6rem;
-    background: linear-gradient(145deg, rgba(240, 160, 48, 0.1), rgba(62, 207, 142, 0.035));
-    border: 1px solid rgba(240, 160, 48, 0.16);
-    border-radius: 14px;
+    padding: 2.2rem 2rem 1.75rem;
+    background:
+      linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(249, 239, 226, 0.86)),
+      radial-gradient(circle at 88% 12%, rgba(199, 119, 22, 0.18), transparent 28%);
+    border: 1px solid rgba(199, 119, 22, 0.2);
+    border-radius: 18px;
+    box-shadow: 0 22px 55px rgba(72, 48, 22, 0.12);
+  }
+
+  .batch-page h1 {
+    color: #111827;
   }
 
   .batch-page .hero-lead {
     max-width: 48ch;
   }
 
+  .batch-page .hero-note {
+    color: #157a55;
+  }
+
   .batch-page .metrics {
     border-top-color: rgba(240, 160, 48, 0.2);
+  }
+
+  .batch-page .pitch,
+  .batch-page .proj-card,
+  .batch-page .proj-step,
+  .batch-page .schema-box pre {
+    background: #ffffff;
+    border-color: #eadcc8;
+    box-shadow: 0 10px 28px rgba(72, 48, 22, 0.06);
+  }
+
+  .batch-page .proj-arch-node {
+    background: #ffffff;
+    border-color: #eadcc8;
+    color: #172033;
+  }
+
+  .footer {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(115, 87, 50, 0.12);
+    border-radius: 12px 12px 0 0;
   }
 </style>
 
