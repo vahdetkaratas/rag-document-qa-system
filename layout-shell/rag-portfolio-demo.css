@@ -73,31 +73,70 @@
   text-align: center;
 }
 .rag-stats strong {
-  font-size: 1.1rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: var(--main-color);
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 .rag-stats span {
-  font-size: 0.78rem;
-  color: var(--text-3);
+  font-size: 0.72rem;
+  color: rgba(255, 193, 7, 0.82);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
 }
 
 .rag-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 .rag-section-title {
-  margin: 0 0 0.65rem;
-  font-size: 1.05rem;
+  margin: 0 0 1rem;
+  font-size: 1.08rem;
   font-weight: 600;
-  color: var(--text-1);
+  color: var(--main-color);
+  letter-spacing: normal;
+  padding-left: 0.65rem;
+  border-left: 3px solid rgba(255, 193, 7, 0.55);
+}
+.rag-flow {
+  margin: 0 0 1rem;
+  padding-left: 0;
+  list-style: none;
+}
+.rag-flow li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.rag-flow-step {
+  flex-shrink: 0;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  background: var(--card-a);
+  border: 1px solid var(--border-soft);
+  color: var(--main-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rag-flow li code {
+  font-size: 0.88em;
+  color: var(--main-color);
 }
 .rag-section-lead {
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.15rem;
   font-size: 0.92rem;
   line-height: 1.6;
   color: var(--text-2);
-  max-width: 52ch;
+  max-width: min(40rem, 100%);
 }
 .rag-section-lead code {
   font-family: var(--font-mono, "Courier Prime", monospace);
@@ -138,11 +177,15 @@
 }
 
 .rag-scope-note {
-  margin: 1.25rem 0 0;
+  margin: 0;
+  padding: 0.75rem 1rem;
   font-size: 0.82rem;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--text-3);
-  max-width: 52ch;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  max-width: none;
 }
 
 .batch-page .proj-demo {

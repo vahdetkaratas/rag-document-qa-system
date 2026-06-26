@@ -30,7 +30,7 @@
           <div class="art-header">
             <div class="art-avatar">
               <a href="https://vahdetlabs.com/" class="art-avatar-curtain">
-                <img src="favicon.svg" alt="Vahdettin Karataş" width="90" height="90">
+                <img src="https://vahdetkaratas.com/img/face-1.jpg" alt="Vahdettin Karataş" width="90" height="90">
                 <i class="fas fa-expand" aria-hidden="true"></i>
               </a>
               <div class="art-lamp-light">
@@ -146,28 +146,51 @@
 
 <section class="proj-section" id="how-it-works">
   <h2>How the system works</h2>
-  <div class="pipeline-wrap">
-    <div class="pipeline" role="list">
-      <div class="pipe-step" role="listitem">
-        <span class="step-label">①</span>
-        <span class="step-name">Scope the corpus</span>
-      </div>
-      <div class="pipe-step" role="listitem">
-        <span class="step-label">②</span>
-        <span class="step-name">Chunk, embed, index</span>
-      </div>
-      <div class="pipe-step" role="listitem">
-        <span class="step-label">③</span>
-        <span class="step-name">Retrieve + generate with citations</span>
-      </div>
-      <div class="pipe-step" role="listitem">
-        <span class="step-label">④</span>
-        <span class="step-name">Integrate via FastAPI</span>
-      </div>
-    </div>
+  <p class="proj-section-intro">End-to-end path from agreed documents to cited answers over HTTP:</p>
+  <div class="proj-arch-visual" aria-label="High-level RAG flow">
+    <span class="proj-arch-node">Corpus in</span>
+    <span class="proj-arch-arrow" aria-hidden="true">→</span>
+    <span class="proj-arch-node">Chunk &amp; embed</span>
+    <span class="proj-arch-arrow" aria-hidden="true">→</span>
+    <span class="proj-arch-node">Retrieve top-k</span>
+    <span class="proj-arch-arrow" aria-hidden="true">→</span>
+    <span class="proj-arch-node">Answer + sources</span>
+    <span class="proj-arch-arrow" aria-hidden="true">→</span>
+    <span class="proj-arch-node"><code>POST /ask</code></span>
   </div>
+  <p class="proj-arch-caption">Indexing runs offline; the API loads FAISS + metadata at startup and keeps the online contract stable while you refresh documents on a schedule.</p>
+  <ol class="proj-steps">
+    <li class="proj-step">
+      <span class="proj-step-num">1</span>
+      <div class="proj-step-body">
+        <h3 class="proj-step-title">Scope the corpus</h3>
+        <p>Agree policies, runbooks, or handbooks — the retrieval boundary, not the open web.</p>
+      </div>
+    </li>
+    <li class="proj-step">
+      <span class="proj-step-num">2</span>
+      <div class="proj-step-body">
+        <h3 class="proj-step-title">Chunk, embed, index</h3>
+        <p>Chunk with overlap, embed with a fixed model, build FAISS — reproducible offline pipeline.</p>
+      </div>
+    </li>
+    <li class="proj-step">
+      <span class="proj-step-num">3</span>
+      <div class="proj-step-body">
+        <h3 class="proj-step-title">Retrieve + generate with citations</h3>
+        <p>Top-k passages ground the LLM; every answer lists document, page, and chunk id.</p>
+      </div>
+    </li>
+    <li class="proj-step">
+      <span class="proj-step-num">4</span>
+      <div class="proj-step-body">
+        <h3 class="proj-step-title">Integrate via FastAPI</h3>
+        <p><code>POST /ask</code> for support tools, scripts, or internal widgets — same contract as the reference deployment.</p>
+      </div>
+    </li>
+  </ol>
   <p class="proj-section-intro">
-    Indexing and serving stay separate so you can refresh documents on a schedule while keeping the online API stable. Acceptance checks focus on <strong>retrieval hit rate</strong> and <strong>source alignment</strong>, not vanity chat UX.
+    Acceptance checks focus on <strong>retrieval hit rate</strong> and <strong>source alignment</strong>, not vanity chat UX.
   </p>
 </section>
 
@@ -180,12 +203,24 @@
 
 <section class="proj-section" id="when-useful">
   <h2>When this is useful</h2>
-  <ul class="pitch">
-    <li>Teams answer the <strong>same policy questions repeatedly</strong> and need faster, traceable lookup.</li>
-    <li>You want <strong>cited answers</strong> before wider LLM rollout inside the company.</li>
-    <li>Support or ops tools need a <strong>small HTTP contract</strong> (<code>POST /ask</code>) rather than a black-box widget.</li>
-    <li>You prefer a <strong>scoped engagement</strong> with clear handover over buying generic “AI search.”</li>
-  </ul>
+  <div class="proj-card-grid">
+    <div class="proj-card">
+      <h3 class="proj-card-title">Repeat policy questions</h3>
+      <p>Teams answer the same SLA, billing, or compliance questions and need faster, traceable lookup.</p>
+    </div>
+    <div class="proj-card">
+      <h3 class="proj-card-title">Cited answers first</h3>
+      <p>You want grounded responses with named passages before wider LLM rollout inside the company.</p>
+    </div>
+    <div class="proj-card">
+      <h3 class="proj-card-title">Small HTTP contract</h3>
+      <p>Support or ops tools need <code>POST /ask</code> — not a black-box chat widget or opaque SaaS.</p>
+    </div>
+    <div class="proj-card">
+      <h3 class="proj-card-title">Scoped engagement</h3>
+      <p>You prefer a pilot with clear handover over buying generic “AI search” with unclear boundaries.</p>
+    </div>
+  </div>
 </section>
 
 <section class="proj-section" id="deployment">

@@ -4,19 +4,38 @@
     <p class="rag-hero-context">{{INTERACTIVE_DEMO_EYEBROW}}</p>
     <p class="rag-subtitle rag-subtitle--centered">{{INTERACTIVE_DEMO_LEAD}}</p>
     <ul class="rag-stats" aria-label="Demo facts">
-      <li><strong>FAISS</strong><span>vector retrieval</span></li>
+      <li><strong>8</strong><span>policy documents</span></li>
       <li><strong>/ask</strong><span>live API</span></li>
-      <li><strong>Sources</strong><span>on every answer</span></li>
+      <li><strong>3</strong><span>fields per source</span></li>
     </ul>
   </header>
+
+  <section class="rag-section" aria-labelledby="rag-flow-heading">
+    <h2 id="rag-flow-heading" class="rag-section-title">How it works</h2>
+    <ol class="rag-flow">
+      <li>
+        <span class="rag-flow-step" aria-hidden="true">1</span>
+        <span><strong>Embed the question</strong> — same model contract as the indexed corpus.</span>
+      </li>
+      <li>
+        <span class="rag-flow-step" aria-hidden="true">2</span>
+        <span><strong>Retrieve top-k</strong> — FAISS returns the closest policy/runbook chunks.</span>
+      </li>
+      <li>
+        <span class="rag-flow-step" aria-hidden="true">3</span>
+        <span><strong>Answer with citations</strong> — the API returns <code>answer</code> plus <code>sources[]</code> (document, page, chunk_id).</span>
+      </li>
+    </ol>
+    <p class="rag-scope-note">{{INTERACTIVE_SCOPE_NOTE}}</p>
+  </section>
 
   <section class="rag-section" aria-labelledby="rag-run-heading">
     <h2 id="rag-run-heading" class="rag-section-title">Ask the demo corpus</h2>
     <p class="rag-section-lead">
-      Fixed index: <strong>8 synthetic policy documents</strong> (SLA, billing, refunds, incident response, support workflow, onboarding, pricing, internal FAQ) from <code>data/raw_docs/</code>. Example chips above map to those themes.
+      Fixed index: <strong>8 synthetic policy documents</strong> (SLA, billing, refunds, incident response, support workflow, onboarding, pricing, internal FAQ) from <code>data/raw_docs/</code>. Example chips below map to those themes.
     </p>
     <p class="rag-section-lead">
-      Calls <code>POST /ask</code> on the deployed API from your browser. Responses include <code>answer</code> and <code>sources</code> (<code>document</code>, <code>page</code>, <code>chunk_id</code>). If the request is blocked (CORS or API key on the server), use
+      Calls <code>POST /ask</code> on the deployed API from your browser. If the request is blocked (CORS or API key on the server), use
       <a href="{{RAG_API_DOCS_URL}}" target="_blank" rel="noopener noreferrer">API docs</a> or curl instead.
     </p>
 
@@ -64,7 +83,5 @@
       <a href="{{RAG_API_DOCS_URL}}" class="rag-quick-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-book" aria-hidden="true"></i> API docs</a>
       <a href="{{RAG_API_HEALTH_URL}}" class="rag-quick-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-heartbeat" aria-hidden="true"></i> Health</a>
     </nav>
-
-    <p class="rag-scope-note">{{INTERACTIVE_SCOPE_NOTE}}</p>
   </section>
 </article>
