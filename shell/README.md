@@ -1,113 +1,39 @@
-# Shared Flagship Demo Shell
+# Shared static demo shell (`shell/`)
 
-This folder is the tracked source for the recruiter-safe shell used by flagship demo projects.
+Templates and assets for **RAG Document QA** landing pages. **Do not edit generated folders by hand** — change `shell/` and re-run Node.
 
-## Purpose
+**Profiles:** Sidebar identity comes from **`shell/profiles/<name>.json`**. The build writes that object to **`profile.json`** in the output folder.
 
-The shell owns shared identity and review flow:
+## Render
 
-- applied ML / data systems positioning
-- project hero frame
-- technical focus sidebar
-- review links
-- related systems links
-- footer and minimal interaction behavior
+From the **repository root**:
 
-Project-specific repositories keep ownership of:
-
-- the project body content
-- API routes and app behavior
-- repo-specific architecture notes
-- demo-specific limitations and links
-
-## Files
-
-- `index.html`: HTML template with placeholders
-- `shell.css`: shared shell layout and identity styling
-- `demo-content.css`: shared body-content defaults
-- `shell.js`: sidebar toggle and small shell behavior
-- `profile.json`: recruiter-default compatibility profile
-- `profiles/*.json`: named shell profiles such as recruiter and commercial
-- `projects/*.json`: per-project config examples
-- `render-shell.mjs`: renders one project shell to a target directory
-
-## Recommended consumption model
-
-Use a copy-and-render strategy.
-
-Why this is the safest option:
-
-- current demo repos already deploy local static shell folders
-- no repo currently exposes a stable shared package/build system
-- submodules add maintenance overhead for small independent repos
-- a tracked source + render script keeps the shell centralized without forcing a monorepo
-
-## Render flow
-
-1. Keep this folder tracked in one source repo.
-2. Copy `shell/` into a flagship demo repo.
-3. Add a repo-specific body HTML partial.
-4. Run:
-
-Recruiter render:
+**Recruiter** (`shell/body/rag.html`) → `layout-shell/`:
 
 ```bash
-node shell/render-shell.mjs \
-  --project shell/projects/rag.json \
-  --body shell/body/rag.html \
-  --out layout-shell \
-  --profile recruiter
+node shell/render-shell.mjs --project shell/projects/rag.json --body shell/body/rag.html --out layout-shell --profile recruiter --demo-body shell/body/interactive-demo.html
 ```
 
-Commercial render:
+**Commercial** (`shell/body/rag-commercial.html`) → `layout-shell-commercial/`:
 
 ```bash
-node shell/render-shell.mjs \
-  --project shell/projects/rag.json \
-  --body shell/body/rag.html \
-  --out layout-shell-commercial \
-  --profile commercial
+node shell/render-shell.mjs --project shell/projects/rag.json --body shell/body/rag-commercial.html --out layout-shell-commercial --profile commercial --demo-body shell/body/interactive-demo.html
 ```
 
-The command writes:
+Outputs include `index.html`, **`portfolio-demo.html`**, `shell.css`, `demo-content.css`, `rag-portfolio-demo.css`, `shell.js`, `favicon.svg`, and `profile.json`.
 
-- `layout-shell/index.html`
-- `layout-shell/shell.css`
-- `layout-shell/demo-content.css`
-- `layout-shell/shell.js`
-- `layout-shell/profile.json`
+## Deploy
 
-The selected profile controls:
+| Build | Host |
+|--------|------|
+| `layout-shell/` | **rag.vahdetkaratas.com** |
+| `layout-shell-commercial/` | **rag.vahdetlabs.com** |
+| API (same backend) | **rag-qa.vahdetkaratas.com** / **rag-qa.vahdetlabs.com** |
 
-- identity line
-- home/portfolio URL
-- technical-focus sidebar
-- review section title
-- footer identity
+**Brand separation:** the **commercial** render uses **VahdetLabs** links only in sidebar CTAs and related lists — no `vahdetkaratas.com` navigation in that build.
 
-The selected project config can also carry profile-specific overrides under `profiles.<name>` for:
+**CORS:** add static origins to `CORS_ORIGINS` on the API (e.g. `https://rag.vahdetkaratas.com`, `https://rag.vahdetlabs.com`).
 
-- page title
-- eyebrow
-- summary
-- project CTA links
-- sidebar links: `relatedMlSystems` and `relatedDataTools` (rendered under headings **ML systems** and **Data tools**), or legacy `relatedSystems` as a single **Related** list
+## Commit policy
 
-For other projects, the same rendered output can be copied to any static web root (VPS, object storage, etc.).
-
-## Pilot approach
-
-RAG is the first multi-profile pilot because it has the clearest frontend/backend separation and the highest need for recruiter/commercial shell divergence.
-
-Once the RAG pilot is stable, the same profile flow can be applied to:
-
-1. Batch Scoring
-2. Feature Store
-3. Monitoring later
-
-## Notes
-
-- The template intentionally has no consulting, services, KPI, spreadsheet, or client-work language.
-- Facebook / Vakasoft links are excluded from the shared identity layer.
-- Project body content is intentionally left repo-specific so each artifact can keep its own technical narrative.
-- README files in the project repos should stay technically neutral; domain-specific positioning belongs in the shell layer, not in the repo README.
+`layout-shell/` and `layout-shell-commercial/` are tracked. Re-render and commit after any change under `shell/`.

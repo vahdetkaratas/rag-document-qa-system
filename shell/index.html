@@ -6,14 +6,15 @@
   <meta name="description" content="{{META_DESCRIPTION}}">
   <meta name="theme-color" content="{{THEME_COLOR}}">
   <title>{{PAGE_TITLE}}</title>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="shell.css">
   <link rel="stylesheet" href="demo-content.css">
+  {{HEAD_EXTRA_HTML}}
 </head>
 <body>
   <div class="shell-outer">
@@ -78,32 +79,22 @@
         <div class="shell-main">
           <main class="shell-scroll" id="shellScroll">
             <div class="shell-content" id="projectContent">
-              <div class="batch-page rag-page">
+              <div class="batch-page">
                 <a class="skip" href="#main">Skip to content</a>
 
                 <div class="wrap">
                   <header>
                     <div class="logo" id="top">{{LOGO_LINE_1}} <span>{{LOGO_LINE_2}}</span></div>
-                    <div class="nav-actions">
-                      {{NAV_BUTTONS}}
+                    <div class="batch-header-tools">
+                      {{HEADER_NAV_EXTRA_HTML}}
+                      <div class="nav-actions">
+                        {{NAV_BUTTONS}}
+                      </div>
                     </div>
                   </header>
 
                   <div id="main">
-                    <section class="hero">
-                      <span class="hero-badge">{{PROJECT_EYEBROW}}</span>
-                      <h1>{{PROJECT_HERO_TITLE}}</h1>
-                      <p class="hero-lead">{{PROJECT_SUMMARY}}</p>
-                      <div class="hero-cta">
-                        {{HERO_CTA_BUTTONS}}
-                      </div>
-                      {{HERO_NOTE_HTML}}
-                      <div class="metrics" aria-label="Project facts">
-                        {{METRICS_ITEMS}}
-                      </div>
-                    </section>
-
-                    {{LIMITATIONS_SECTION_HTML}}
+                    {{MAIN_TOP_HTML}}
 
                     {{CONTENT_HTML}}
                   </div>
@@ -125,9 +116,9 @@
           </main>
         </div>
 
-        <aside class="shell-rail" aria-label="Home">
+        <aside class="shell-rail" aria-label="{{RAIL_ASIDE_LABEL}}">
           <div class="shell-rail-header">
-            <a class="shell-rail-home" href="{{PORTFOLIO_URL}}" id="shellHomeLink" title="Portfolio home" aria-label="Portfolio home">
+            <a class="shell-rail-home" href="{{RAIL_HOME_URL}}" id="shellHomeLink" title="{{RAIL_HOME_TITLE}}" aria-label="{{RAIL_HOME_TITLE}}">
               <svg viewBox="0 0 24 24" aria-hidden="true" class="shell-rail-home-icon">
                 <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/>
               </svg>

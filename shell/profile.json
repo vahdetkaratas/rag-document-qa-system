@@ -1,19 +1,22 @@
 {
-  "name": "Vahdettin Karatas",
-  "identity": "Applied ML / Data Systems",
+  "name": "Vahdettin Karataş",
+  "identity": "Data & ML engineering — retrieval systems, APIs, deployment",
+  "identitySub": "",
   "location": "Prague, Czech Republic",
-  "portfolioUrl": "https://vahdetkaratas.com/",
+  "portfolioUrl": "https://github.com/vahdetkaratas",
   "avatarUrl": "https://vahdetkaratas.com/img/face-1.jpg",
   "technicalFocus": [
-    "RAG systems",
-    "Batch scoring",
-    "Feature workflows",
-    "Monitoring and validation",
-    "APIs and reproducible tooling"
+    "RAG & document QA",
+    "Embeddings & vector search",
+    "FastAPI & OpenAPI",
+    "Docker & VPS deployment",
+    "Reproducible indexing pipelines"
   ],
-  "reviewSectionTitle": "Review this artifact",
-  "relatedSectionTitle": "Related systems",
-  "footerLabel": "Applied ML / Data Systems portfolio artifact",
+  "reviewSectionTitle": "For hiring review",
+  "footerLabel": "Portfolio artifact",
+  "footerTagline": "Retrieval-augmented QA, cited answers, and production-style APIs.",
+  "railHomeTitle": "GitHub profile",
+  "railAsideLabel": "GitHub",
   "socialLinks": [
     {
       "label": "GitHub",
@@ -22,7 +25,7 @@
     },
     {
       "label": "LinkedIn",
-      "href": "https://linkedin.com/in/vahdetkaratas",
+      "href": "https://www.linkedin.com/in/vahdettin-karatas/",
       "iconClass": "fab fa-linkedin-in"
     }
   ]

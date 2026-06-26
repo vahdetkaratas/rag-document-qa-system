@@ -1,0 +1,67 @@
+<article class="rag-deck">
+  <header class="rag-hero rag-hero--centered">
+    <h1 class="rag-title">Interactive Q&amp;A demo</h1>
+    <p class="rag-hero-context">{{INTERACTIVE_DEMO_EYEBROW}}</p>
+    <p class="rag-subtitle rag-subtitle--centered">{{INTERACTIVE_DEMO_LEAD}}</p>
+    <ul class="rag-stats" aria-label="Demo facts">
+      <li><strong>FAISS</strong><span>vector retrieval</span></li>
+      <li><strong>/ask</strong><span>live API</span></li>
+      <li><strong>Sources</strong><span>on every answer</span></li>
+    </ul>
+  </header>
+
+  <section class="rag-section" aria-labelledby="rag-run-heading">
+    <h2 id="rag-run-heading" class="rag-section-title">Ask the demo corpus</h2>
+    <p class="rag-section-lead">
+      Calls <code>POST /ask</code> on the deployed API from your browser. If the request is blocked (CORS or API key on the server), use
+      <a href="{{RAG_API_DOCS_URL}}" target="_blank" rel="noopener noreferrer">API docs</a> or curl instead.
+    </p>
+
+    <div class="proj-demo" id="projDemo" aria-busy="false">
+      <p class="proj-demo-hint">Try an example (fills the box; then press Ask):</p>
+      <div class="proj-example-chips" role="group" aria-label="Example questions">
+        <button type="button" class="proj-example-chip" data-q="What is the response time for P1 incidents?">P1 response time</button>
+        <button type="button" class="proj-example-chip" data-q="What happens after 3 failed payments?">After 3 failed payments</button>
+        <button type="button" class="proj-example-chip" data-q="What discount is offered for annual billing?">Annual billing discount</button>
+        <button type="button" class="proj-example-chip" data-q="What uptime target is offered for Pro plans?">Pro plan uptime</button>
+        <button type="button" class="proj-example-chip" data-q="When should a ticket be escalated to Tier 2?">Tier 2 escalation</button>
+      </div>
+
+      <label class="proj-demo-label" for="demoQuestion">Your question</label>
+      <textarea id="demoQuestion" class="proj-demo-input" rows="3" placeholder="Type a question or pick an example above..." autocomplete="off"></textarea>
+
+      <div class="proj-demo-row">
+        <button type="button" class="proj-btn proj-btn-primary" id="demoAskBtn">Ask</button>
+      </div>
+
+      <div class="proj-demo-progress" id="demoProgress" hidden>
+        <span class="proj-demo-spinner" aria-hidden="true"></span>
+        <span class="proj-demo-progress-text">Searching documents and generating answer...</span>
+      </div>
+      <p class="proj-demo-status" id="demoStatus" aria-live="polite"></p>
+
+      <div class="proj-demo-out" id="demoAnswerWrap" hidden>
+        <h3 class="proj-demo-out-title">Answer</h3>
+        <p class="proj-answer-grounding" id="demoGrounding">This answer was generated using retrieved document context. The passages listed under <strong>retrieved evidence</strong> are what the model was shown.</p>
+        <div class="proj-demo-answer" id="demoAnswer"></div>
+
+        <h3 class="proj-demo-out-title proj-sources-heading">Retrieved evidence</h3>
+        <p class="proj-sources-lead">Chunks returned by the API as supporting context for the answer above.</p>
+        <div class="proj-sources-cards" id="demoSources"></div>
+
+        <details class="proj-context-details" id="demoContextDetails" hidden>
+          <summary class="proj-context-summary">View excerpt of retrieved context (first chunk text from API)</summary>
+          <p class="proj-context-note" id="demoContextMeta"></p>
+          <pre class="proj-context-excerpt" id="demoContextExcerpt"></pre>
+        </details>
+      </div>
+    </div>
+
+    <nav class="rag-quick-links" aria-label="Live service checks">
+      <a href="{{RAG_API_DOCS_URL}}" class="rag-quick-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-book" aria-hidden="true"></i> API docs</a>
+      <a href="{{RAG_API_HEALTH_URL}}" class="rag-quick-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-heartbeat" aria-hidden="true"></i> Health</a>
+    </nav>
+
+    <p class="rag-scope-note">{{INTERACTIVE_SCOPE_NOTE}}</p>
+  </section>
+</article>

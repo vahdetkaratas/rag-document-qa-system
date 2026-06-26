@@ -1,4 +1,4 @@
-/* Batch Scoring page content — scoped inside .batch-page (shell = shell.css) */
+/* Main-column content — scoped inside .batch-page (shell = shell.css) */
 .batch-page {
   --bg: #0a0c10;
   --bg-elevated: #12151c;
@@ -66,6 +66,15 @@
   padding: 1.35rem 0 1.75rem;
   border-bottom: 1px solid var(--border);
 }
+.batch-page header .batch-header-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  flex: 1;
+  min-width: 0;
+}
 .batch-page .logo {
   font-weight: 700;
   font-size: 0.88rem;
@@ -129,7 +138,7 @@
   opacity: 0;
   animation: batch-enter 0.6s ease forwards;
 }
-.batch-page main section.hero {
+.batch-page #main > section.hero {
   opacity: 1;
   animation: none;
 }
@@ -643,7 +652,7 @@
   margin: 0;
 }
 
-/* ----- RAG body (shell/body/*.html) — tokens from .batch-page ----- */
+/* ----- Body HTML (shell/body/*.html) — tokens from .batch-page ----- */
 .batch-page .proj-section-intro {
   font-size: 0.92rem;
   color: var(--muted);
@@ -713,7 +722,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: ragstep;
+  counter-reset: projstep;
 }
 .batch-page .proj-step {
   display: grid;
@@ -892,9 +901,9 @@
   border: 2px solid var(--border);
   border-top-color: var(--accent);
   border-radius: 50%;
-  animation: rag-spin 0.7s linear infinite;
+  animation: shell-spin 0.7s linear infinite;
 }
-@keyframes rag-spin {
+@keyframes shell-spin {
   to {
     transform: rotate(360deg);
   }

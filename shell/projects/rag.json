@@ -1,98 +1,89 @@
 {
-  "pageTitle": "RAG Document QA - Applied ML / Data Systems",
-  "title": "RAG document intelligence QA",
-  "eyebrow": "Portfolio artifact - retrieval + serving",
-  "summary": "Retrieval-augmented question answering with chunked documents, FAISS search, FastAPI serving, cited answers, and explicit deployment boundaries.",
-  "metaDescription": "RAG system with retrieval, FastAPI serving, source citations, API docs, and deployable infrastructure notes.",
-  "heroTitle": "RAG document intelligence QA",
   "logoLine1": "RAG",
-  "logoLine2": "Document QA",
-  "themeColor": "#0a0c10",
+  "logoLine2": "document QA",
   "footerProjectName": "RAG Document QA",
-  "footerProjectSub": "Retrieval + generation · FastAPI · FAISS",
-  "heroNote": "Static HTML only; the browser demo calls the live API. Authentication or CORS on the API side can block requests—use the API docs or curl when that happens.",
+  "footerProjectSub": "Chunked corpus · FAISS · cited answers · FastAPI",
+  "pageTitle": "RAG Document QA — retrieval + serving",
+  "title": "RAG Document QA",
+  "heroTitle": "RAG Document QA",
+  "eyebrow": "Open source · retrieval + serving",
+  "summary": "Question answering over a fixed document corpus: chunk, embed, retrieve with FAISS, answer with an OpenAI-compatible model, and return explicit sources on every response.",
+  "metaDescription": "Document RAG with ingestion, FAISS retrieval, FastAPI /ask, source citations, Docker deployment, and an interactive browser demo.",
+  "themeColor": "#191923",
   "stack": [
-    "FastAPI",
-    "FAISS",
-    "sentence-transformers",
-    "Docker",
+    "Python · FastAPI",
+    "FAISS · sentence-transformers",
+    "Docker · VPS",
     "OpenAI / Ollama"
   ],
-  "projectLinks": [
-    {
-      "label": "GitHub",
-      "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
-      "external": true
-    },
-    {
-      "label": "API docs",
-      "href": "https://rag-qa.vahdetkaratas.com/docs",
-      "external": true
-    },
-    {
-      "label": "Local run",
-      "href": "https://github.com/vahdetkaratas/rag-document-qa-system#readme",
-      "external": true
-    }
-  ],
-  "reviewLinks": [
-    {
-      "label": "GitHub repository",
-      "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
-      "external": true
-    },
-    {
-      "label": "API docs",
-      "href": "https://rag-qa.vahdetkaratas.com/docs",
-      "external": true
-    },
-    {
-      "label": "Deploy notes",
-      "href": "https://github.com/vahdetkaratas/rag-document-qa-system#deployment",
-      "external": true
-    },
-    {
-      "label": "Local run",
-      "href": "https://github.com/vahdetkaratas/rag-document-qa-system#readme",
-      "external": true
-    }
-  ],
-  "relatedMlSystems": [],
-  "relatedDataTools": [],
   "limitations": [
     "Fixed corpus only; the system does not browse the open web.",
-    "Retrieval quality constrains answer quality.",
-    "LLM behavior still needs inspection even when sources are present."
+    "Retrieval quality constrains answer quality — weak matches need human review.",
+    "LLM behaviour still needs inspection even when sources are returned."
+  ],
+  "relatedMlSystems": [
+    {
+      "label": "Batch scoring",
+      "href": "https://batch-scoring.vahdetlabs.com/",
+      "external": true
+    },
+    {
+      "label": "Feature store",
+      "href": "https://feature-store.vahdetlabs.com/",
+      "external": true
+    },
+    {
+      "label": "Monitoring & data quality",
+      "href": "https://monitoring.vahdetlabs.com/",
+      "external": true
+    },
+    {
+      "label": "Customer churn prediction",
+      "href": "https://churn.vahdetlabs.com/",
+      "external": true
+    }
+  ],
+  "relatedDataTools": [
+    {
+      "label": "Data cleaning toolkit",
+      "href": "https://data-cleaning.vahdetlabs.com/",
+      "external": true
+    },
+    {
+      "label": "EDA report generator",
+      "href": "https://eda-report.vahdetlabs.com/",
+      "external": true
+    },
+    {
+      "label": "Forecasting demo",
+      "href": "https://forecasting.vahdetlabs.com/",
+      "external": true
+    },
+    {
+      "label": "CSV analytics",
+      "href": "https://ai-analysis.vahdetlabs.com/",
+      "external": true
+    },
+    {
+      "label": "KPI dashboard",
+      "href": "https://kpi-dashboard.vahdetlabs.com/",
+      "external": true
+    }
   ],
   "profiles": {
     "recruiter": {
-      "pageTitle": "RAG Document QA - Applied ML / Data Systems",
-      "eyebrow": "Portfolio artifact - retrieval + serving",
-      "summary": "End-to-end RAG I operate in production: chunked corpus, FAISS retrieval, FastAPI /ask with cited sources, and an embedding/index contract enforced at startup so serving cannot silently drift from the indexed model. Scope includes API shape, deployment wiring, and the offline ingest → embed → index loop.",
-      "heroNote": "Static portfolio page; the in-browser demo posts to the public API. If you see a network error, the host may require a key or a CORS allow-list for this origin.",
+      "ragApiPublicUrl": "https://rag-qa.vahdetkaratas.com/",
+      "ragApiDocsUrl": "https://rag-qa.vahdetkaratas.com/docs",
+      "ragApiAskUrl": "https://rag-qa.vahdetkaratas.com/ask",
+      "eyebrow": "Proof of work · retrieval + serving",
+      "summary": "End-to-end RAG I operate in production: chunked corpus, FAISS retrieval, FastAPI /ask with cited sources, and an embedding/index contract enforced at startup so serving cannot silently drift from the indexed model.",
+      "heroNote": "Interactive demo on this site posts to the public API. If the browser blocks the request, use API docs or curl — often CORS or API key on the server.",
+      "demoPageTitle": "RAG Document QA — interactive demo",
+      "demoMetaDescription": "Ask questions against the demo policy corpus via POST /ask — same API contract as production.",
+      "interactiveDemoEyebrow": "RAG Document QA — browser demo against the live /ask endpoint.",
+      "interactiveDemoLead": "Pick an example or type a question. Answers and retrieved sources come from the deployed API — useful when reviewers want evidence, not slides.",
+      "interactiveDemoScopeNote": "Demo corpus is fixed sample policies; production work scopes your documents, auth, and hosting boundary.",
       "footerProjectSub": "Portfolio artifact · live API on VPS",
-      "reviewLinks": [
-        {
-          "label": "GitHub repository",
-          "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
-          "external": true
-        },
-        {
-          "label": "API docs",
-          "href": "https://rag-qa.vahdetkaratas.com/docs",
-          "external": true
-        },
-        {
-          "label": "CV / profile",
-          "href": "https://vahdetkaratas.com/",
-          "external": true
-        },
-        {
-          "label": "Architecture notes",
-          "href": "https://github.com/vahdetkaratas/rag-document-qa-system#architecture",
-          "external": true
-        }
-      ],
       "projectLinks": [
         {
           "label": "GitHub",
@@ -100,13 +91,37 @@
           "external": true
         },
         {
-          "label": "API docs",
+          "label": "Interactive demo",
+          "href": "portfolio-demo.html",
+          "external": false
+        }
+      ],
+      "demoProjectLinks": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
+          "external": true
+        },
+        {
+          "label": "Project overview",
+          "href": "index.html",
+          "external": false
+        }
+      ],
+      "reviewLinks": [
+        {
+          "label": "Interactive demo",
+          "href": "portfolio-demo.html",
+          "external": false
+        },
+        {
+          "label": "Live API docs",
           "href": "https://rag-qa.vahdetkaratas.com/docs",
           "external": true
         },
         {
-          "label": "CV / profile",
-          "href": "https://vahdetkaratas.com/",
+          "label": "GitHub repository",
+          "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
           "external": true
         }
       ],
@@ -127,100 +142,95 @@
           "external": true
         },
         {
-          "label": "Vahdetlabs",
-          "href": "https://vahdetlabs.com/",
-          "external": true
-        },
-        {
           "label": "Monitoring & data quality",
-          "href": "https://monitoring.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "Customer churn prediction",
-          "href": "https://churn.vahdetlabs.com/",
-          "external": true
-        }
-      ],
-      "relatedDataTools": [
-        {
-          "label": "Data cleaning toolkit",
-          "href": "https://data-cleaning.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "EDA report generator",
-          "href": "https://eda-report.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "Forecasting demo",
-          "href": "https://forecasting.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "CSV analytics",
-          "href": "https://ai-analysis.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "KPI dashboard",
-          "href": "https://kpi-dashboard.vahdetlabs.com/",
+          "href": "https://monitoring.vahdetkaratas.com/",
           "external": true
         }
       ]
     },
     "commercial": {
-      "pageTitle": "RAG Document QA - Commercial capability demo",
-      "eyebrow": "Capability demo - retrieval + grounded answers",
-      "summary": "Internal document QA you can ship behind your network boundary: uploaded policies and runbooks become the retrieval corpus, answers stay tied to cited passages, and the same FastAPI surface can be integrated into support or ops tools. A pilot scopes corpus, auth, and hosting—this page demonstrates the public reference deployment.",
-      "heroNote": "Public demo instance for evaluation. Production use is corpus-specific: NDAs, VPC/VPN placement, and your IdP—not this static page.",
+      "ragApiPublicUrl": "https://rag-qa.vahdetlabs.com/",
+      "ragApiDocsUrl": "https://rag-qa.vahdetlabs.com/docs",
+      "ragApiAskUrl": "https://rag-qa.vahdetlabs.com/ask",
+      "eyebrow": "Pilot capability · grounded document QA",
+      "summary": "Internal document QA you can scope as a pilot: policies and runbooks become the retrieval corpus, answers stay tied to cited passages, and the same FastAPI surface integrates into support or ops tooling.",
+      "heroNote": "Public reference deployment for evaluation. Production pilots pin corpus, auth, VPC/VPN placement, and your IdP — not this static page alone.",
+      "demoPageTitle": "RAG Document QA — try the demo",
+      "demoMetaDescription": "Ask against the reference corpus on the live API; same retrieval + citation contract as a scoped pilot.",
+      "interactiveDemoEyebrow": "Reference deployment — fixed demo corpus, honest pilot boundaries.",
+      "interactiveDemoLead": "Use example questions or type your own. Responses include cited sources so technical stakeholders can verify grounding before a larger build.",
+      "interactiveDemoScopeNote": "Not a consumer chat product — a pilot-sized pattern with your corpus, access controls, and hosting decided in scope.",
+      "pageTitle": "RAG Document QA — pilot document intelligence",
+      "metaDescription": "Pilot-sized document QA: retrieval, cited answers, and FastAPI integration — scoped engagements, not generic chat SaaS.",
+      "stack": [
+        "Agreed document corpus",
+        "Cited answers",
+        "FastAPI integration",
+        "Pilot-ready hosting"
+      ],
+      "limitations": [
+        "Not a hosted multi-tenant chat product or open-web assistant.",
+        "Answer quality depends on corpus quality, chunking, and retrieval — pilots define acceptance checks.",
+        "Production work includes auth, network boundary, and corpus governance beyond this reference UI."
+      ],
       "footerProjectSub": "Client evaluation demo · same API surface as pilots",
-      "reviewLinks": [
+      "projectLinks": [
         {
-          "label": "Book intro call",
+          "label": "Interactive demo",
+          "href": "portfolio-demo.html",
+          "external": false
+        },
+        {
+          "label": "Discuss a pilot",
           "href": "https://vahdetlabs.com/contact",
           "external": true
         },
         {
-          "label": "Vahdetlabs home",
+          "label": "VahdetLabs",
           "href": "https://vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "API docs",
-          "href": "https://rag-qa.vahdetkaratas.com/docs",
-          "external": true
-        },
-        {
-          "label": "Source repository",
-          "href": "https://github.com/vahdetkaratas/rag-document-qa-system",
           "external": true
         }
       ],
-      "projectLinks": [
+      "demoProjectLinks": [
         {
-          "label": "Book intro call",
+          "label": "Discuss a pilot",
           "href": "https://vahdetlabs.com/contact",
           "external": true
         },
         {
-          "label": "Request pilot scope",
+          "label": "VahdetLabs",
           "href": "https://vahdetlabs.com/",
           "external": true
         },
         {
+          "label": "Project overview",
+          "href": "index.html",
+          "external": false
+        }
+      ],
+      "reviewLinks": [
+        {
+          "label": "Interactive demo",
+          "href": "portfolio-demo.html",
+          "external": false
+        },
+        {
           "label": "API docs",
-          "href": "https://rag-qa.vahdetkaratas.com/docs",
+          "href": "https://rag-qa.vahdetlabs.com/docs",
+          "external": true
+        },
+        {
+          "label": "Contact",
+          "href": "https://vahdetlabs.com/contact",
+          "external": true
+        },
+        {
+          "label": "VahdetLabs",
+          "href": "https://vahdetlabs.com/",
           "external": true
         }
       ],
       "relatedMlSystems": [
-        {
-          "label": "Vahdetlabs",
-          "href": "https://vahdetlabs.com/",
-          "external": true
-        },
         {
           "label": "Batch scoring",
           "href": "https://batch-scoring.vahdetlabs.com/",
@@ -239,33 +249,6 @@
         {
           "label": "Customer churn prediction",
           "href": "https://churn.vahdetlabs.com/",
-          "external": true
-        }
-      ],
-      "relatedDataTools": [
-        {
-          "label": "Data cleaning toolkit",
-          "href": "https://data-cleaning.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "EDA report generator",
-          "href": "https://eda-report.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "Forecasting demo",
-          "href": "https://forecasting.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "CSV analytics",
-          "href": "https://ai-analysis.vahdetlabs.com/",
-          "external": true
-        },
-        {
-          "label": "KPI dashboard",
-          "href": "https://kpi-dashboard.vahdetlabs.com/",
           "external": true
         }
       ]
