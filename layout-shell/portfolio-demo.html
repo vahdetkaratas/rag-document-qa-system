@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Ask questions against the demo policy corpus via POST /ask — same API contract as production.">
+  <meta name="theme-color" content="#191923">
+  <title>RAG Document QA — interactive demo</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="shell.css">
+  <link rel="stylesheet" href="demo-content.css">
+  <meta name="rag-api-origin" content="https://rag-qa.vahdetkaratas.com">
+  <meta name="rag-api-ask" content="https://rag-qa.vahdetkaratas.com/ask">
+  <link rel="stylesheet" href="rag-portfolio-demo.css">
+</head>
+<body>
+  <div class="shell-outer">
+    <div class="shell-card">
+      <div class="art-info-bar">
+        <div class="art-info-bar-frame">
+          <div class="art-info-bar-header">
+            <button type="button" class="art-info-bar-btn" aria-label="Toggle info" aria-expanded="false">
+              <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="art-header">
+            <div class="art-avatar">
+              <a href="https://github.com/vahdetkaratas" class="art-avatar-curtain">
+                <img src="https://vahdetkaratas.com/img/face-1.jpg" alt="Vahdettin Karataş" width="90" height="90">
+                <i class="fas fa-expand" aria-hidden="true"></i>
+              </a>
+              <div class="art-lamp-light">
+                <div class="art-available-lamp"></div>
+              </div>
+            </div>
+            <h5 class="art-name mb-10"><a href="https://github.com/vahdetkaratas">Vahdettin Karataş</a></h5>
+            <div class="art-sm-text">Data &amp; ML engineering — retrieval systems, APIs, deployment</div>
+            
+          </div>
+
+          <div id="scrollbar2" class="art-scroll-frame">
+            <div class="art-table p-15-15">
+              <ul>
+                <li><h6>Location:</h6><span>Prague, Czech Republic</span></li>
+              </ul>
+            </div>
+
+            <div class="art-ls-divider"></div>
+
+            <div class="art-knowledge-block p-30-15">
+              <h6 class="mb-15">Technical focus</h6>
+              <ul class="art-knowledge-list p-15-0">
+                <li>RAG &amp; document QA</li>
+<li>Embeddings &amp; vector search</li>
+<li>FastAPI &amp; OpenAPI</li>
+<li>Docker &amp; VPS deployment</li>
+<li>Reproducible indexing pipelines</li>
+              </ul>
+            </div>
+
+            <div class="art-knowledge-block p-30-15">
+              <h6 class="mb-15">For hiring review</h6>
+              <ul class="art-knowledge-list p-15-0">
+                <li><a href="portfolio-demo.html">Interactive demo</a></li>
+<li><a href="https://rag-qa.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">Live API docs</a></li>
+<li><a href="https://github.com/vahdetkaratas/rag-document-qa-system" target="_blank" rel="noopener noreferrer">GitHub repository</a></li>
+              </ul>
+            </div>
+
+            <div class="art-knowledge-block p-30-15"><h6 class="mb-15">ML systems</h6><ul class="art-knowledge-list p-15-0"><li><a href="https://vahdetkaratas.com/portfolio" target="_blank" rel="noopener noreferrer">Portfolio</a></li>
+<li><a href="https://batch-scoring.vahdetkaratas.com/" target="_blank" rel="noopener noreferrer">Batch scoring</a></li>
+<li><a href="https://feature-store.vahdetkaratas.com/" target="_blank" rel="noopener noreferrer">Feature store</a></li>
+<li><a href="https://monitoring.vahdetkaratas.com/" target="_blank" rel="noopener noreferrer">Monitoring &amp; data quality</a></li></ul></div><div class="art-knowledge-block p-30-15"><h6 class="mb-15">Data tools</h6><ul class="art-knowledge-list p-15-0"><li><a href="https://data-cleaning.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">Data cleaning toolkit</a></li>
+<li><a href="https://eda-report.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">EDA report generator</a></li>
+<li><a href="https://forecasting.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">Forecasting demo</a></li>
+<li><a href="https://ai-analysis.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">CSV analytics</a></li>
+<li><a href="https://kpi-dashboard.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">KPI dashboard</a></li></ul></div>
+          </div>
+
+          <div class="art-ls-social">
+            <a href="https://github.com/vahdetkaratas" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+<a href="https://www.linkedin.com/in/vahdettin-karatas/" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="shell-main-wrap" id="shellMainWrap">
+        <div class="shell-mobile-curtain" id="shellMobileCurtain" aria-hidden="true"></div>
+        <div class="shell-main">
+          <main class="shell-scroll" id="shellScroll">
+            <div class="shell-content" id="projectContent">
+              <div class="batch-page">
+                <a class="skip" href="#main">Skip to content</a>
+
+                <div class="wrap">
+                  <header>
+                    <div class="logo" id="top">RAG <span>document QA</span></div>
+                    <div class="batch-header-tools">
+                      
+                      <div class="nav-actions">
+                        <a class="btn btn-primary" href="https://github.com/vahdetkaratas/rag-document-qa-system" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+<a class="btn btn-ghost" href="index.html">Project overview</a>
+                      </div>
+                    </div>
+                  </header>
+
+                  <div id="main">
+                    
+
+                    <article class="rag-deck">
+  <header class="rag-hero rag-hero--centered">
+    <h1 class="rag-title">Interactive Q&amp;A demo</h1>
+    <p class="rag-hero-context">RAG Document QA — browser demo against the live /ask endpoint.</p>
+    <p class="rag-subtitle rag-subtitle--centered">Pick an example or type a question. Answers and retrieved sources come from the deployed API — useful when reviewers want evidence, not slides.</p>
+    <ul class="rag-stats" aria-label="Demo facts">
+      <li><strong>FAISS</strong><span>vector retrieval</span></li>
+      <li><strong>/ask</strong><span>live API</span></li>
+      <li><strong>Sources</strong><span>on every answer</span></li>
+    </ul>
+  </header>
+
+  <section class="rag-section" aria-labelledby="rag-run-heading">
+    <h2 id="rag-run-heading" class="rag-section-title">Ask the demo corpus</h2>
+    <p class="rag-section-lead">
+      Calls <code>POST /ask</code> on the deployed API from your browser. If the request is blocked (CORS or API key on the server), use
+      <a href="https://rag-qa.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">API docs</a> or curl instead.
+    </p>
+
+    <div class="proj-demo" id="projDemo" aria-busy="false">
+      <p class="proj-demo-hint">Try an example (fills the box; then press Ask):</p>
+      <div class="proj-example-chips" role="group" aria-label="Example questions">
+        <button type="button" class="proj-example-chip" data-q="What is the response time for P1 incidents?">P1 response time</button>
+        <button type="button" class="proj-example-chip" data-q="What happens after 3 failed payments?">After 3 failed payments</button>
+        <button type="button" class="proj-example-chip" data-q="What discount is offered for annual billing?">Annual billing discount</button>
+        <button type="button" class="proj-example-chip" data-q="What uptime target is offered for Pro plans?">Pro plan uptime</button>
+        <button type="button" class="proj-example-chip" data-q="When should a ticket be escalated to Tier 2?">Tier 2 escalation</button>
+      </div>
+
+      <label class="proj-demo-label" for="demoQuestion">Your question</label>
+      <textarea id="demoQuestion" class="proj-demo-input" rows="3" placeholder="Type a question or pick an example above..." autocomplete="off"></textarea>
+
+      <div class="proj-demo-row">
+        <button type="button" class="proj-btn proj-btn-primary" id="demoAskBtn">Ask</button>
+      </div>
+
+      <div class="proj-demo-progress" id="demoProgress" hidden>
+        <span class="proj-demo-spinner" aria-hidden="true"></span>
+        <span class="proj-demo-progress-text">Searching documents and generating answer...</span>
+      </div>
+      <p class="proj-demo-status" id="demoStatus" aria-live="polite"></p>
+
+      <div class="proj-demo-out" id="demoAnswerWrap" hidden>
+        <h3 class="proj-demo-out-title">Answer</h3>
+        <p class="proj-answer-grounding" id="demoGrounding">This answer was generated using retrieved document context. The passages listed under <strong>retrieved evidence</strong> are what the model was shown.</p>
+        <div class="proj-demo-answer" id="demoAnswer"></div>
+
+        <h3 class="proj-demo-out-title proj-sources-heading">Retrieved evidence</h3>
+        <p class="proj-sources-lead">Chunks returned by the API as supporting context for the answer above.</p>
+        <div class="proj-sources-cards" id="demoSources"></div>
+
+        <details class="proj-context-details" id="demoContextDetails" hidden>
+          <summary class="proj-context-summary">View excerpt of retrieved context (first chunk text from API)</summary>
+          <p class="proj-context-note" id="demoContextMeta"></p>
+          <pre class="proj-context-excerpt" id="demoContextExcerpt"></pre>
+        </details>
+      </div>
+    </div>
+
+    <nav class="rag-quick-links" aria-label="Live service checks">
+      <a href="https://rag-qa.vahdetkaratas.com/docs" class="rag-quick-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-book" aria-hidden="true"></i> API docs</a>
+      <a href="https://rag-qa.vahdetkaratas.com/health" class="rag-quick-link" target="_blank" rel="noopener noreferrer"><i class="fas fa-heartbeat" aria-hidden="true"></i> Health</a>
+    </nav>
+
+    <p class="rag-scope-note">Demo corpus is fixed sample policies; production work scopes your documents, auth, and hosting boundary.</p>
+  </section>
+</article>
+
+                  </div>
+
+                  <footer class="batch-project-footer">
+                    <p class="name">RAG Document QA</p>
+                    <p style="margin:0.35rem 0 0;font-size:0.76rem;">Portfolio artifact · live API on VPS</p>
+                  </footer>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid p-30-0">
+              <footer class="footer">
+                <div class="art-copy">© <span id="shellYear"></span> Vahdettin Karataş. All rights reserved.</div>
+                <div class="footer-developer">Retrieval-augmented QA, cited answers, and production-style APIs.</div>
+              </footer>
+            </div>
+          </main>
+        </div>
+
+        <aside class="shell-rail" aria-label="GitHub">
+          <div class="shell-rail-header">
+            <a class="shell-rail-home" href="https://github.com/vahdetkaratas" id="shellHomeLink" title="GitHub profile" aria-label="GitHub profile">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="shell-rail-home-icon">
+                <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/>
+              </svg>
+            </a>
+          </div>
+          <div class="shell-rail-spacer" aria-hidden="true"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script src="shell.js"></script>
+</body>
+</html>

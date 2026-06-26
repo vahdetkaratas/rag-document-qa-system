@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Document RAG with ingestion, FAISS retrieval, FastAPI /ask, source citations, Docker deployment, and an interactive browser demo.">
+  <meta name="theme-color" content="#191923">
+  <title>RAG Document QA — retrieval + serving</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Poppins:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="shell.css">
+  <link rel="stylesheet" href="demo-content.css">
+  
+</head>
+<body>
+  <div class="shell-outer">
+    <div class="shell-card">
+      <div class="art-info-bar">
+        <div class="art-info-bar-frame">
+          <div class="art-info-bar-header">
+            <button type="button" class="art-info-bar-btn" aria-label="Toggle info" aria-expanded="false">
+              <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="art-header">
+            <div class="art-avatar">
+              <a href="https://github.com/vahdetkaratas" class="art-avatar-curtain">
+                <img src="https://vahdetkaratas.com/img/face-1.jpg" alt="Vahdettin Karataş" width="90" height="90">
+                <i class="fas fa-expand" aria-hidden="true"></i>
+              </a>
+              <div class="art-lamp-light">
+                <div class="art-available-lamp"></div>
+              </div>
+            </div>
+            <h5 class="art-name mb-10"><a href="https://github.com/vahdetkaratas">Vahdettin Karataş</a></h5>
+            <div class="art-sm-text">Data &amp; ML engineering — retrieval systems, APIs, deployment</div>
+            
+          </div>
+
+          <div id="scrollbar2" class="art-scroll-frame">
+            <div class="art-table p-15-15">
+              <ul>
+                <li><h6>Location:</h6><span>Prague, Czech Republic</span></li>
+              </ul>
+            </div>
+
+            <div class="art-ls-divider"></div>
+
+            <div class="art-knowledge-block p-30-15">
+              <h6 class="mb-15">Technical focus</h6>
+              <ul class="art-knowledge-list p-15-0">
+                <li>RAG &amp; document QA</li>
+<li>Embeddings &amp; vector search</li>
+<li>FastAPI &amp; OpenAPI</li>
+<li>Docker &amp; VPS deployment</li>
+<li>Reproducible indexing pipelines</li>
+              </ul>
+            </div>
+
+            <div class="art-knowledge-block p-30-15">
+              <h6 class="mb-15">For hiring review</h6>
+              <ul class="art-knowledge-list p-15-0">
+                <li><a href="portfolio-demo.html">Interactive demo</a></li>
+<li><a href="https://rag-qa.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">Live API docs</a></li>
+<li><a href="https://github.com/vahdetkaratas/rag-document-qa-system" target="_blank" rel="noopener noreferrer">GitHub repository</a></li>
+              </ul>
+            </div>
+
+            <div class="art-knowledge-block p-30-15"><h6 class="mb-15">ML systems</h6><ul class="art-knowledge-list p-15-0"><li><a href="https://vahdetkaratas.com/portfolio" target="_blank" rel="noopener noreferrer">Portfolio</a></li>
+<li><a href="https://batch-scoring.vahdetkaratas.com/" target="_blank" rel="noopener noreferrer">Batch scoring</a></li>
+<li><a href="https://feature-store.vahdetkaratas.com/" target="_blank" rel="noopener noreferrer">Feature store</a></li>
+<li><a href="https://monitoring.vahdetkaratas.com/" target="_blank" rel="noopener noreferrer">Monitoring &amp; data quality</a></li></ul></div><div class="art-knowledge-block p-30-15"><h6 class="mb-15">Data tools</h6><ul class="art-knowledge-list p-15-0"><li><a href="https://data-cleaning.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">Data cleaning toolkit</a></li>
+<li><a href="https://eda-report.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">EDA report generator</a></li>
+<li><a href="https://forecasting.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">Forecasting demo</a></li>
+<li><a href="https://ai-analysis.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">CSV analytics</a></li>
+<li><a href="https://kpi-dashboard.vahdetlabs.com/" target="_blank" rel="noopener noreferrer">KPI dashboard</a></li></ul></div>
+          </div>
+
+          <div class="art-ls-social">
+            <a href="https://github.com/vahdetkaratas" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+<a href="https://www.linkedin.com/in/vahdettin-karatas/" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="shell-main-wrap" id="shellMainWrap">
+        <div class="shell-mobile-curtain" id="shellMobileCurtain" aria-hidden="true"></div>
+        <div class="shell-main">
+          <main class="shell-scroll" id="shellScroll">
+            <div class="shell-content" id="projectContent">
+              <div class="batch-page">
+                <a class="skip" href="#main">Skip to content</a>
+
+                <div class="wrap">
+                  <header>
+                    <div class="logo" id="top">RAG <span>document QA</span></div>
+                    <div class="batch-header-tools">
+                      
+                      <div class="nav-actions">
+                        <a class="btn btn-primary" href="https://github.com/vahdetkaratas/rag-document-qa-system" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a>
+<a class="btn btn-ghost" href="portfolio-demo.html">Interactive demo</a>
+                      </div>
+                    </div>
+                  </header>
+
+                  <div id="main">
+                                        <section class="hero">
+                      <span class="hero-badge">Proof of work · retrieval + serving</span>
+                      <h1>RAG Document QA</h1>
+                      <p class="hero-lead">End-to-end RAG I operate in production: chunked corpus, FAISS retrieval, FastAPI /ask with cited sources, and an embedding/index contract enforced at startup so serving cannot silently drift from the indexed model.</p>
+                      <p class="hero-note">Interactive demo on this site posts to the public API. If the browser blocks the request, use API docs or curl — often CORS or API key on the server.</p>
+                      <div class="metrics" aria-label="Project facts">
+                        <div><span>Python · FastAPI</span></div>
+<div><span>FAISS · sentence-transformers</span></div>
+<div><span>Docker · VPS</span></div>
+<div><span>OpenAI / Ollama</span></div>
+                      </div>
+                    </section>
+
+                    <section id="scope" aria-labelledby="h-scope"><h2 id="h-scope">Limitations &amp; scope</h2><div class="pitch"><ul><li>Fixed corpus only; the system does not browse the open web.</li>
+<li>Retrieval quality constrains answer quality — weak matches need human review.</li>
+<li>LLM behaviour still needs inspection even when sources are returned.</li></ul></div></section>
+
+
+                    <section class="proj-section" id="overview">
+  <h2>Overview</h2>
+  <p class="proj-section-intro">
+    Procedures, SLAs, and policies often live in PDFs and tickets. Keyword search misses paraphrases; this repo implements <strong>semantic retrieval</strong> over a fixed corpus, then an OpenAI-compatible chat model answers from retrieved passages only. Every response includes <strong>document</strong>, <strong>page</strong>, and <strong>chunk id</strong> for auditability.
+  </p>
+</section>
+
+<section class="proj-section" id="workflow">
+  <h2>Workflow</h2>
+  <div class="pipeline-wrap">
+    <div class="pipeline" role="list">
+      <div class="pipe-step" role="listitem">
+        <span class="step-label">①</span>
+        <span class="step-name">Ingest &amp; chunk</span>
+      </div>
+      <div class="pipe-step" role="listitem">
+        <span class="step-label">②</span>
+        <span class="step-name">Embed &amp; index</span>
+      </div>
+      <div class="pipe-step" role="listitem">
+        <span class="step-label">③</span>
+        <span class="step-name">Retrieve top-k</span>
+      </div>
+      <div class="pipe-step" role="listitem">
+        <span class="step-label">④</span>
+        <span class="step-name">Answer + sources via <code>POST /ask</code></span>
+      </div>
+    </div>
+  </div>
+  <p class="proj-section-intro">
+    Offline indexing (<code>run_extraction</code>, chunking, FAISS build) is separate from the online path. The API loads index + metadata at startup and enforces the embedding model contract before serving traffic.
+  </p>
+</section>
+
+<section class="proj-section" id="features">
+  <h2>What it demonstrates</h2>
+  <ul class="pitch">
+    <li><strong>Grounded answers</strong> — generation uses retrieved context, not unconstrained model prior on corpus facts.</li>
+    <li><strong>Source citations</strong> — each hit lists document, page, and chunk id.</li>
+    <li><strong>API-first</strong> — FastAPI + OpenAPI; integrate from browsers, scripts, or internal tools.</li>
+    <li><strong>Deployable stack</strong> — Docker image, VPS + reverse proxy, health checks before <code>/ask</code>.</li>
+  </ul>
+</section>
+
+<section class="proj-section" id="stack">
+  <h2>Tech stack</h2>
+  <div class="stack" role="list">
+    <span class="tag">Python 3.11 · FastAPI</span>
+    <span class="tag">FAISS · sentence-transformers</span>
+    <span class="tag">OpenAI / Ollama</span>
+    <span class="tag">Docker · pytest</span>
+  </div>
+  <p class="proj-section-intro">Streamlit demo ships in-repo; this static site adds an overview plus an interactive demo page that calls the live API.</p>
+</section>
+
+<section class="proj-section" id="deployment">
+  <h2>Deployment / live interface</h2>
+  <p class="proj-section-intro">
+    API host for this build: <strong><a href="https://rag-qa.vahdetkaratas.com/" target="_blank" rel="noopener noreferrer">https://rag-qa.vahdetkaratas.com/</a></strong> · OpenAPI at <a href="https://rag-qa.vahdetkaratas.com/docs" target="_blank" rel="noopener noreferrer">/docs</a>. Static pages deploy on <code>rag.*</code> hostnames; use <a href="portfolio-demo.html">portfolio-demo.html</a> on this site for the browser Q&amp;A demo.
+  </p>
+</section>
+
+<section class="proj-section" id="why">
+  <h2>Why this project</h2>
+  <div class="pitch">
+    <p>
+      It shows a full <strong>retrieve → prompt → answer</strong> path behind HTTP with explicit sources — not a notebook-only sketch. The same patterns apply wherever teams need accountable answers from an agreed document set.
+    </p>
+  </div>
+</section>
+
+                  </div>
+
+                  <footer class="batch-project-footer">
+                    <p class="name">RAG Document QA</p>
+                    <p style="margin:0.35rem 0 0;font-size:0.76rem;">Portfolio artifact · live API on VPS</p>
+                  </footer>
+                </div>
+              </div>
+            </div>
+
+            <div class="container-fluid p-30-0">
+              <footer class="footer">
+                <div class="art-copy">© <span id="shellYear"></span> Vahdettin Karataş. All rights reserved.</div>
+                <div class="footer-developer">Retrieval-augmented QA, cited answers, and production-style APIs.</div>
+              </footer>
+            </div>
+          </main>
+        </div>
+
+        <aside class="shell-rail" aria-label="GitHub">
+          <div class="shell-rail-header">
+            <a class="shell-rail-home" href="https://github.com/vahdetkaratas" id="shellHomeLink" title="GitHub profile" aria-label="GitHub profile">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="shell-rail-home-icon">
+                <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/>
+              </svg>
+            </a>
+          </div>
+          <div class="shell-rail-spacer" aria-hidden="true"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script src="shell.js"></script>
+</body>
+</html>
