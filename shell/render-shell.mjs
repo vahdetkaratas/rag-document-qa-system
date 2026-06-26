@@ -372,18 +372,6 @@ async function main() {
     }
   }
 
-  const avatarUrl = profile.avatarUrl && String(profile.avatarUrl).trim();
-  const isLocalAvatar =
-    avatarUrl &&
-    !avatarUrl.startsWith("/") &&
-    !/^[a-z][a-z0-9+.-]*:\/\//i.test(avatarUrl);
-  if (isLocalAvatar && avatarUrl !== "favicon.svg") {
-    await fs.copyFile(
-      path.join(ROOT, avatarUrl),
-      path.join(outDir, path.basename(avatarUrl))
-    );
-  }
-
   await fs.writeFile(
     path.join(outDir, "profile.json"),
     `${JSON.stringify(profile, null, 2)}\n`,
