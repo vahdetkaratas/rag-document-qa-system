@@ -13,7 +13,6 @@ venv/
 dist/
 build/
 rep.md
-# Render outputs layout-shell/ and layout-shell-commercial/ are committed (see shell/README.md).
 # Internal planning / working docs (keep local, do not publish)
 docs/ISSUES_AND_REMEDIATION_PLAN.md
 docs/MILESTONES.md
