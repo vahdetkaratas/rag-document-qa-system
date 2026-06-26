@@ -152,9 +152,9 @@
       "ragApiPublicUrl": "https://rag-qa.vahdetlabs.com/",
       "ragApiDocsUrl": "https://rag-qa.vahdetlabs.com/docs",
       "ragApiAskUrl": "https://rag-qa.vahdetlabs.com/ask",
-      "eyebrow": "Pilot capability · grounded document QA",
-      "summary": "Internal document QA you can scope as a pilot: policies and runbooks become the retrieval corpus, answers stay tied to cited passages, and the same FastAPI surface integrates into support or ops tooling.",
-      "heroNote": "Public reference deployment for evaluation. Production pilots pin corpus, auth, VPC/VPN placement, and your IdP — not this static page alone.",
+      "eyebrow": "VahdetLabs pilot · cited internal document QA",
+      "summary": "Turn policies, runbooks, and handbooks into a scoped Q&A pilot: answers are grounded in your agreed documents, citations stay visible, and the FastAPI contract can plug into support or ops workflows.",
+      "heroNote": "Commercial pilot shape: agree the corpus, define access and hosting, validate retrieval quality, then hand over a documented API surface — not a generic chat SaaS.",
       "demoPageTitle": "RAG Document QA — try the demo",
       "demoMetaDescription": "Ask against the reference corpus on the live API; same retrieval + citation contract as a scoped pilot.",
       "interactiveDemoEyebrow": "Reference deployment — fixed demo corpus, honest pilot boundaries.",
@@ -163,26 +163,27 @@
       "pageTitle": "RAG Document QA — pilot document intelligence",
       "metaDescription": "Pilot-sized document QA: retrieval, cited answers, and FastAPI integration — scoped engagements, not generic chat SaaS.",
       "stack": [
-        "Agreed document corpus",
+        "Corpus scoping",
         "Cited answers",
-        "FastAPI integration",
-        "Pilot-ready hosting"
+        "Support / ops integration",
+        "Pilot handover"
       ],
-      "limitations": [
-        "Not a hosted multi-tenant chat product or open-web assistant.",
-        "Answer quality depends on corpus quality, chunking, and retrieval — pilots define acceptance checks.",
-        "Production work includes auth, network boundary, and corpus governance beyond this reference UI."
-      ],
-      "footerProjectSub": "Client evaluation demo · same API surface as pilots",
+      "limitations": [],
+      "footerProjectSub": "VahdetLabs client evaluation · scoped document QA pilot",
       "projectLinks": [
         {
-          "label": "Interactive demo",
+          "label": "Discuss a pilot",
+          "href": "https://vahdetlabs.com/contact",
+          "external": true
+        },
+        {
+          "label": "Try demo",
           "href": "portfolio-demo.html",
           "external": false
         },
         {
-          "label": "Discuss a pilot",
-          "href": "https://vahdetlabs.com/contact",
+          "label": "API docs",
+          "href": "https://rag-qa.vahdetlabs.com/docs",
           "external": true
         },
         {
@@ -210,6 +211,11 @@
       ],
       "reviewLinks": [
         {
+          "label": "Discuss a pilot",
+          "href": "https://vahdetlabs.com/contact",
+          "external": true
+        },
+        {
           "label": "Interactive demo",
           "href": "portfolio-demo.html",
           "external": false
@@ -217,11 +223,6 @@
         {
           "label": "API docs",
           "href": "https://rag-qa.vahdetlabs.com/docs",
-          "external": true
-        },
-        {
-          "label": "Contact",
-          "href": "https://vahdetlabs.com/contact",
           "external": true
         },
         {

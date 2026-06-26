@@ -1,7 +1,30 @@
+<style>
+  .art-info-bar .art-avatar {
+    width: 74px;
+    height: 74px;
+    margin-bottom: 12px;
+  }
+
+  .batch-page .hero {
+    padding: 2rem 1.75rem 1.6rem;
+    background: linear-gradient(145deg, rgba(240, 160, 48, 0.1), rgba(62, 207, 142, 0.035));
+    border: 1px solid rgba(240, 160, 48, 0.16);
+    border-radius: 14px;
+  }
+
+  .batch-page .hero-lead {
+    max-width: 48ch;
+  }
+
+  .batch-page .metrics {
+    border-top-color: rgba(240, 160, 48, 0.2);
+  }
+</style>
+
 <section class="proj-section" id="solves">
   <h2>What this solves</h2>
   <p class="proj-section-intro">
-    Support, ops, and compliance teams store answers in PDFs, wikis, and tickets — but <strong>keyword search fails on paraphrases</strong> and chat tools hallucinate without citations. A scoped pilot turns your agreed documents into a <strong>retrieval corpus</strong>, returns answers tied to <strong>named passages</strong>, and exposes the same behaviour over HTTP for internal tools.
+    Support, ops, and compliance teams store answers in PDFs, wikis, and tickets — but <strong>keyword search fails on paraphrases</strong> and generic chat tools hallucinate without citations. A VahdetLabs pilot turns your agreed documents into a <strong>retrieval corpus</strong>, returns answers tied to <strong>named passages</strong>, and exposes the same behaviour over HTTP for internal tools.
   </p>
 </section>
 
@@ -10,6 +33,28 @@
   <p class="proj-section-intro">
     From an <strong>agreed document set</strong> (policies, runbooks, handbooks), you get a <strong>repeatable Q&amp;A surface</strong>: chunked index, retrieval configuration, cited responses, and integration notes for your network boundary. Outputs suit <strong>internal support workflows</strong> — not a public open-web assistant. The public reference deployment uses a fixed <strong>eight-document sample corpus</strong> so stakeholders can verify behaviour before scoping yours.
   </p>
+</section>
+
+<section class="proj-section" id="when-useful">
+  <h2>When this is useful</h2>
+  <div class="proj-card-grid">
+    <div class="proj-card">
+      <h3 class="proj-card-title">Repeat policy questions</h3>
+      <p>Teams answer the same SLA, billing, HR, or compliance questions and need faster lookup with traceable evidence.</p>
+    </div>
+    <div class="proj-card">
+      <h3 class="proj-card-title">Cited answers first</h3>
+      <p>You want grounded responses with named passages before rolling LLM access into a wider internal workflow.</p>
+    </div>
+    <div class="proj-card">
+      <h3 class="proj-card-title">Small HTTP contract</h3>
+      <p>Support or ops tools need <code>POST /ask</code> — not a black-box chat widget or open-ended SaaS assistant.</p>
+    </div>
+    <div class="proj-card">
+      <h3 class="proj-card-title">Scoped handover</h3>
+      <p>You prefer a pilot with documented corpus, auth, hosting, and acceptance checks over a broad “AI search” purchase.</p>
+    </div>
+  </div>
 </section>
 
 <section class="proj-section" id="how-it-works">
@@ -62,38 +107,18 @@
   </p>
 </section>
 
-<section class="proj-section" id="scope-limits">
-  <h2>Scope and limits</h2>
-  <p class="proj-section-intro">
-    This is intentionally <strong>not</strong> a consumer SaaS chatbot, not an open-web research agent, and not a substitute for legal sign-off on regulated text. It is a <strong>pilot-sized implementation pattern</strong> with honest boundaries. The reference API exists so technical stakeholders can verify behaviour — the business outcome of a successful pilot is corpus, auth, and hosting agreed with your team.
-  </p>
-</section>
-
-<section class="proj-section" id="when-useful">
-  <h2>When this is useful</h2>
-  <div class="proj-card-grid">
-    <div class="proj-card">
-      <h3 class="proj-card-title">Repeat policy questions</h3>
-      <p>Teams answer the same SLA, billing, or compliance questions and need faster, traceable lookup.</p>
-    </div>
-    <div class="proj-card">
-      <h3 class="proj-card-title">Cited answers first</h3>
-      <p>You want grounded responses with named passages before wider LLM rollout inside the company.</p>
-    </div>
-    <div class="proj-card">
-      <h3 class="proj-card-title">Small HTTP contract</h3>
-      <p>Support or ops tools need <code>POST /ask</code> — not a black-box chat widget or opaque SaaS.</p>
-    </div>
-    <div class="proj-card">
-      <h3 class="proj-card-title">Scoped engagement</h3>
-      <p>You prefer a pilot with clear handover over buying generic “AI search” with unclear boundaries.</p>
-    </div>
-  </div>
-</section>
-
 <section class="proj-section" id="deployment">
   <h2>Where to try it</h2>
   <p class="proj-section-intro">
     This overview lives on the <strong>VahdetLabs</strong> project page (<code>rag.vahdetlabs.com</code>). The reference <strong><a href="{{RAG_API_PUBLIC_URL}}" target="_blank" rel="noopener noreferrer">API host</a></strong> and <a href="portfolio-demo.html">interactive demo</a> use a fixed sample corpus for evaluation — an engineering reference, not a consumer landing experience.
   </p>
+</section>
+
+<section class="proj-section" id="scope-limits">
+  <h2>Scope and limits</h2>
+  <ul class="proj-tech-list">
+    <li>Not a hosted multi-tenant chat product or open-web research agent.</li>
+    <li>Answer quality depends on corpus quality, chunking, and retrieval — pilots define acceptance checks.</li>
+    <li>Production work includes auth, network boundary, and corpus governance beyond this reference UI.</li>
+  </ul>
 </section>

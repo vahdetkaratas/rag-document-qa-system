@@ -368,8 +368,20 @@ async function main() {
     try {
       await fs.copyFile(src, path.join(outDir, file));
     } catch (e) {
-      if (file !== "favicon.svg" && file !== "rag-portfolio-demo.css") throw e;
+      if (!["favicon.svg", "rag-portfolio-demo.css"].includes(file)) throw e;
     }
+  }
+
+  const avatarUrl = profile.avatarUrl && String(profile.avatarUrl).trim();
+  const isLocalAvatar =
+    avatarUrl &&
+    !avatarUrl.startsWith("/") &&
+    !/^[a-z][a-z0-9+.-]*:\/\//i.test(avatarUrl);
+  if (isLocalAvatar && avatarUrl !== "favicon.svg") {
+    await fs.copyFile(
+      path.join(ROOT, avatarUrl),
+      path.join(outDir, path.basename(avatarUrl))
+    );
   }
 
   await fs.writeFile(

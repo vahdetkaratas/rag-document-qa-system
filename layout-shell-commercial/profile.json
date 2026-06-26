@@ -1,28 +1,23 @@
 {
-  "name": "Vahdettin Karataş",
-  "identity": "Freelance ML / data systems delivery — grounded document QA",
+  "name": "VahdetLabs",
+  "identity": "Document intelligence pilots — grounded answers, integration, and handover",
   "identitySub": "",
   "location": "Prague, Czech Republic",
   "portfolioUrl": "https://vahdetlabs.com/",
-  "avatarUrl": "https://vahdetkaratas.com/img/face-1.jpg",
+  "avatarUrl": "avatar-vahdetlabs.svg",
   "technicalFocus": [
-    "Internal document QA pilots",
-    "Retrieval + cited answers",
-    "Policy / runbook corpora",
+    "Scoped document QA pilots",
+    "Cited answers over agreed corpora",
+    "Support / ops / policy workflows",
     "FastAPI integration surfaces",
-    "Scoped hosting & auth patterns"
+    "Auth, hosting, and handover planning"
   ],
-  "reviewSectionTitle": "For client evaluation",
-  "footerLabel": "Capability demo",
-  "footerTagline": "Document-grounded Q&A for teams — pilot scope, not generic chat SaaS.",
+  "reviewSectionTitle": "Client evaluation",
+  "footerLabel": "VahdetLabs capability overview",
+  "footerTagline": "Document-grounded Q&A pilots for teams that need cited internal answers.",
   "railHomeTitle": "VahdetLabs home",
   "railAsideLabel": "VahdetLabs",
   "socialLinks": [
-    {
-      "label": "GitHub",
-      "href": "https://github.com/vahdetkaratas",
-      "iconClass": "fab fa-github"
-    },
     {
       "label": "VahdetLabs",
       "href": "https://vahdetlabs.com/",
